@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiranga + Rashtragaan Animation</title>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Merriweather', serif;
+    overflow: hidden;
+    background-image: url('background.jpg' );
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Stambh */
+  .stambh-container { perspective: 1000px; text-align: center; }
+  .stambh {
+    width: 180px;
+    height: 400px;
+    background: url('b48ab9f9b9e169a2a308728d1ba2fa82.jpg') no-repeat center/contain;
+    transform-style: preserve-3d;
+    margin: 0 auto;
+    animation: fadeIn 2s ease-in-out;
+  }
+
+  /* Intro text */
+  .intro-text {
+    margin-top: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: rgba(0,0,0,0.6);
+  }
+
+  /* Start button */
+  #startBtn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #FF9933, white, #138808);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+  }
+  #startBtn:hover {
+    transform: scale(1.05);
+  }
+
+  /* Lyrics */
+  .lyrics-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 10px;
+  }
+  .lyrics-line {
+    font-size: 1.5rem;
+    opacity: 0.2;
+    transition: opacity 0.5s;
+  }
+
+  /* Stop button */
+  #stopBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 7px;
+    cursor: pointer;
+    z-index: 10;
+    display: none;
+    margin-bottom: 5px;
+  }
+</style>
+</head>
+<body>
+<!-- Intro -->
+<div class="stambh-container" id="intro-scene">
+
+    
+  <!-- Three.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.155.0/examples/js/loaders/GLTFLoader.js"></script>
+
+<div id="three-container" style="width:100%; height:300px;"></div>
+
+<script>
+  let scene = new THREE.Scene();
+  let camera = new THREE.PerspectiveCamera(45, window.innerWidth / 300, 0.1, 1000);
+  let renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, 300);
+  document.getElementById('three-container').appendChild(renderer.domElement);
+
+  // light
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+  scene.add(ambientLight);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+  dirLight.position.set(5, 10, 7);
+  scene.add(dirLight);
+
+  // loader
+  const loader = new THREE.GLTFLoader();
+  loader.load('india_double_flag-1.glb', (gltf) => {
+    const model = gltf.scene;
+    model.scale.set(2, 2, 2);
+    model.position.set(0, -1, 0);
+    scene.add(model);
+
+    // animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      model.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+    animate();
+  });
+
+  camera.position.z = 5;
+
+  // responsive resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / 300;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, 300);
+  });
+</script>
+
+  <!-- New Welcome Text -->
+  <div class="welcome-text" style="
+    margin-top: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2C3E50; /* Dark Blue for contrast */
+    animation: fadeIn 2s ease-in-out;
+    text-align: center;
+    line-height: 1.5;
+  ">
+    आपका स्वागत है! 🇮🇳<br>
+    Independence Day Special Project में<br>
+    प्रोजेक्ट से पहले एक बार राष्ट्रगान हो जाए...
+  </div>
+
+  <div class="intro-text" style="margin-top: 15px;">
+    राष्ट्रगान शुरू हो रहा है...
+  </div>
+  
+  <button id="startBtn">शुरू करें</button>
+</div>
+
+<style>
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+</style>
+<!-- Lyrics -->
+<div class="lyrics-container" id="lyrics">
+  <div class="lyrics-line">जन गण मन अधिनायक जय हे</div>
+  <div class="lyrics-line">भारत भाग्य विधाता</div>
+  <div class="lyrics-line">पंजाब सिंधु गुजरात मराठा</div>
+  <div class="lyrics-line">द्राविड़ उत्कल बंग</div>
+  <div class="lyrics-line">विंध्य हिमाचल यमुना गंगा</div>
+  <div class="lyrics-line">उच्छल जलधि तरंग</div>
+  <div class="lyrics-line">तव शुभ नामे जागे</div>
+  <div class="lyrics-line">तव शुभ आशीष मांगे</div>
+  <div class="lyrics-line">गाहे तव जय गाथा</div>
+  <div class="lyrics-line">जन गण मंगलदायक जय हे</div>
+  <div class="lyrics-line">भारत भाग्य विधाता</div>
+  <div class="lyrics-line">जय हे! जय हे! जय हे!</div>
+  <div class="lyrics-line">जय जय जय जय हे!</div>
+</div>
+
+<!-- Stop Button -->
+<button id="stopBtn">Stop</button>
+
+<audio id="anthem-audio" src="rashtragaan.mp3"></audio>
+
+<script>
+const timestamps = [
+  2.8, 7.0, 11.5, 16.9, 22.4, 26.7,
+  31.8, 36.5, 42.3, 45.5, 52.0, 55.8, 63.7
+];
+
+const audio = document.getElementById("anthem-audio");
+const lines = document.querySelectorAll(".lyrics-line");
+const stopBtn = document.getElementById("stopBtn");
+
+document.getElementById("startBtn").addEventListener("click", () => {
+  // Hide intro after click
+  gsap.to("#intro-scene", { opacity: 0, duration: 1, onComplete: startLyrics });
+});
+function startLyrics(){
+  document.getElementById("intro-scene").style.display = "none";
+  document.getElementById("lyrics").style.display = "flex";
+  stopBtn.style.display = "block";
+
+  audio.play().catch(err => console.log("Play error:", err));
+
+  let revealed = new Array(lines.length).fill(false);
+  function syncLyrics(){
+    const t = audio.currentTime;
+    timestamps.forEach((time, i) => {
+      if (!revealed[i] && t >= time){
+        lines[i].style.opacity = 1;
+        revealed[i] = true;
+      }
+    });
+    requestAnimationFrame(syncLyrics);
+  }
+  syncLyrics();
+
+  audio.onended = loadMainContent;
+  stopBtn.onclick = () => {
+    audio.pause();
+    loadMainContent();
+  };
+}
+
+function loadMainContent(){
+  window.location.href = "home.html";
+}
+</script>
+
+</body>
+</html>

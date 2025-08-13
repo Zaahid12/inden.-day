@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>15 अगस्त विशेष • iStart Churu, Rajasthan</title>
+  <meta name="description" content="Independence Day special website exploring iStart in Churu, Rajasthan — animations, tricolour theme, and unique design." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+background-image: url('background.jpg');
+
+
+      --card: rgba(255,255,255,0.12);
+      --glass: rgba(255,255,255,0.18);
+      --shadow: 0 10px 30px rgba(0,0,0,.18);
+      --radius: 22px;
+    }    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:#0b1220;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      overflow-x:hidden;
+    }
+
+    /* --- Animated Tricolour Background --- */
+    .bg-flag{
+      position:fixed; inset:0; z-index:-2; overflow:hidden;
+      background:linear-gradient(
+        180deg,
+        var(--saffron) 0%, var(--saffron) 33.33%,
+        var(--white) 33.33%, var(--white) 66.66%,
+        var(--green) 66.66%, var(--green) 100%
+      );
+    }
+    .bg-flag::before{
+      content:""; position:absolute; inset:-20% -10%;
+      background: radial-gradient( circle at 50% 120%, rgba(255,255,255,.5), transparent 50% ),
+                  repeating-linear-gradient( 110deg, rgba(255,255,255,.18) 0 14px, rgba(0,0,0,.05) 14px 28px );
+      mix-blend-mode:overlay; filter: blur(10px) saturate(1.2);
+      animation: wave 18s ease-in-out infinite alternate;
+    }
+    @keyframes wave{ from{ transform:skewY(-4deg) translateY(-3%);} to{ transform:skewY(6deg) translateY(3%);} }
+
+    /* --- Layout helpers --- */
+    .container{width:min(1100px, 92vw); margin:0 auto;}
+    section{padding:72px 0}
+
+    /* --- Navbar --- */
+    header{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(10px);
+      background:linear-gradient( to right, rgba(255,255,255,.65), rgba(255,255,255,.35) );
+      border-bottom:1px solid rgba(255,255,255,.4);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.4px}
+    .brand .chakra{width:28px; height:28px}
+    .nav a{color:#10223a; text-decoration:none; font-weight:600; padding:8px 12px; border-radius:999px; transition:.25s}
+    .nav a:hover{background:var(--card); transform: translateY(-1px)}
+
+    /* --- Hero --- */
+    .hero{ padding:86px 0 64px; text-align:center; position:relative; }
+    .pill{
+      display:inline-flex; align-items:center; gap:10px; padding:8px 14px; border-radius:999px;
+      background:linear-gradient(90deg, var(--saffron), var(--white), var(--green));
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow:var(--shadow);
+      font-weight:700; color:#08223b;
+    }
+    h1{font-size: clamp(28px, 4.2vw, 58px); line-height:1.06; margin:18px 0 10px; font-weight:800}
+    .sub{font-size: clamp(15px, 1.6vw, 18px); color:#1a2b3f; opacity:.9}
+    .cta{margin-top:20px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap}
+    .btn{padding:12px 18px; border-radius:999px; border:none; cursor:pointer; font-weight:700; transition:.25s; box-shadow:var(--shadow)}
+    .btn-primary{background:conic-gradient(from 90deg, var(--saffron), var(--white), var(--green));}
+    .btn-outline{background:#ffffffb3; border:1px solid #d9e3ef}
+    .btn:hover{transform:translateY(-2px) scale(1.02)}
+
+    /* --- Cards --- */
+    .grid{ display:grid; grid-template-columns: repeat( auto-fit, minmax(240px, 1fr) ); gap:18px; }
+    .card{background:var(--glass); border:1px solid rgba(255,255,255,.35); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); backdrop-filter: blur(8px);}
+    .card h3{margin:6px 0 6px}
+    .badge{display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px; background:#ffffffd1; border:1px solid #e6eef7; font-weight:700}
+
+    /* --- Section titles --- */
+    .tag{letter-spacing:.6px; color:#0b3b2c; font-weight:800}
+    .title{font-size: clamp(22px, 3.5vw, 40px); margin:8px 0 14px; font-weight:800}
+    .lead{color:#12293b; opacity:.9}
+
+    /* --- Marquee / ribbon --- */
+    .ribbon{ position:relative; overflow:hidden; padding:10px 0; border-top:1px dashed rgba(0,0,0,.15); border-bottom:1px dashed rgba(0,0,0,.15); background:#fffefacc }
+    .ribbon .track{ display:flex; gap:28px; white-space:nowrap; animation:scroll 24s linear infinite }
+    @keyframes scroll{ to{ transform: translateX(-50%) } }
+    .chip{ display:inline-flex; align-items:center; gap:8px; padding:8px 14px; background:#ffffff; border-radius:999px; border:1px solid #e8edf2; box-shadow:var(--shadow); }
+
+    /* --- Timeline --- */
+    .timeline{ position:relative; margin-top:16px; }
+    .timeline::before{ content:""; position:absolute; left:18px; top:0; bottom:0; width:4px; background:linear-gradient(180deg, var(--saffron), var(--white), var(--green)); border-radius:999px }
+    .step{ position:relative; margin-left:60px; padding:16px; background:#ffffff; border-radius:16px; border:1px solid #e6edf2; box-shadow:var(--shadow); }
+    .step::before{ content:""; position:absolute; left:-44px; top:18px; width:16px; height:16px; border:4px solid var(--navy); border-radius:50%; background:white }
+
+    /* --- Startups scroller --- */
+    .scroller{ display:grid; grid-auto-flow:column; grid-auto-columns: minmax(240px, 1fr); gap:14px; overflow-x:auto; padding-bottom:8px; scroll-snap-type:x mandatory }
+    .scroller .card{ scroll-snap-align:start }
+
+    /* --- Footer --- */
+    footer{ text-align:center; padding:36px 0; color:#07312a; font-weight:700 }
+
+    /* --- Ashok Chakra SVG styling --- */
+    svg.chakra { filter: drop-shadow(0 6px 14px rgba(0,0,0,.14)); }
+    .spin { animation:spin 18s linear infinite }
+    @keyframes spin{ to { transform: rotate(360deg) } }
+
+    /* --- Scroll reveal --- */
+    .reveal{ opacity:0; transform: translateY(12px); transition: .6s ease }
+    .reveal.visible{ opacity:1; transform:none }
+
+    /* --- Fireworks Canvas Button --- */
+    .floating-btn{ position:fixed; right:16px; bottom:16px; z-index:10 }
+
+    .flag-bar{ height:6px; background:linear-gradient(90deg, var(--saffron) 0 33.33%, var(--white) 33.33% 66.66%, var(--green) 66.66% 100% ); border-radius:999px }
+  </style>
+</head>
+<body>
+  <div class="bg-flag" aria-hidden="true"></div>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">🇮🇳 Some Legends Of Freedom </div>
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul id="navLinks">
+        <li><a href="home.html">Home</a></li>
+
+    </ul>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    nav .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #B22222;
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li {
+        margin-left: 20px;
+    }
+    nav ul li a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #222;
+        font-size: 1rem;
+        transition: color 0.3s;
+        background: rgba(252, 86, 20, 0.8);
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+    nav ul li a:hover {
+        color: #B22222;
+    }
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .menu-toggle span {
+        height: 3px;
+        width: 25px;
+        background: #cfa7a7;
+        margin: 4px 0;
+        border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+        nav ul {
+            display: none;
+            flex-direction: column;
+            background: rgba(255,255,255,0.9);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+        nav ul.show {
+            display: flex;
+        }
+        nav ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .menu-toggle {
+            display: flex;
+        }
+    }
+</style>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <!-- Ashok Chakra -->
+        <svg class="chakra spin" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" fill="none" stroke="var(--navy)" stroke-width="1.8"/>
+          <!-- 24 spokes -->
+          <g stroke="var(--navy)" stroke-width="1.6" stroke-linecap="round">
+            <line x1="12" y1="2.5" x2="12" y2="5.1"/>
+            <line x1="12" y1="18.9" x2="12" y2="21.5"/>
+            <line x1="2.5" y1="12" x2="5.1" y2="12"/>
+            <line x1="18.9" y1="12" x2="21.5" y2="12"/>
+            <line x1="5.2" y1="5.2" x2="7.1" y2="7.1"/>
+            <line x1="16.9" y1="16.9" x2="18.8" y2="18.8"/>
+            <line x1="16.9" y1="5.2" x2="18.8" y2="7.1"/>
+            <line x1="5.2" y1="16.9" x2="7.1" y2="18.8"/>
+            <!-- extra spokes (16 more) -->
+            <g transform="rotate(15 12 12)">
+              <line x1="12" y1="2.5" x2="12" y2="5.1"/>
+              <line x1="12" y1="18.9" x2="12" y2="21.5"/>
+              <line x1="2.5" y1="12" x2="5.1" y2="12"/>
+              <line x1="18.9" y1="12" x2="21.5" y2="12"/>
+              <line x1="5.2" y1="5.2" x2="7.1" y2="7.1"/>
+              <line x1="16.9" y1="16.9" x2="18.8" y2="18.8"/>
+              <line x1="16.9" y1="5.2" x2="18.8" y2="7.1"/>
+              <line x1="5.2" y1="16.9" x2="7.1" y2="18.8"/>
+            </g>
+          </g>
+          <circle cx="12" cy="12" r="1.9" fill="var(--navy)"/>
+        </svg>
+        <span>iStart Churu • Rajasthan</span>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero container">
+      <span class="pill">🇮🇳 15 अगस्त विशेष • Azadi Ka Amrit Mahotsav</span>
+      <h1>चूरू के <span style="color:var(--navy)">iStart</span> इकोसिस्टम को एक्सप्लोर करें</h1>
+      <p class="sub">Rajasthan IT & Start-up नीति के अंतर्गत iStart केन्द्र उद्यमियों को <b>मेंटरशिप, को-वर्किंग</b> और <b>मार्केट कनेक्शन</b> प्रदान करता है।
+        इस विशेष पेज पर चूरू के iStart का एक झलक—त्रिरंगा थीम, एनीमेशन और यूनिक डिज़ाइन के साथ।</p>
+      <div class="cta">
+        <button class="btn btn-primary" onclick="celebrate()">स्वतंत्रता दिवस मनाएँ 🎆</button>
+        <a class="btn btn-outline" href="#about">और जानें</a>
+      </div>
+    </section>
+
+    <div class="flag-bar container" aria-hidden="true"></div>
+
+    <!-- ABOUT -->
+    <section id="about" class="container reveal">
+      <div class="grid">
+        <article class="card">
+          <span class="badge">About iStart • चूरू</span>
+          <h3>नवाचार के लिए सक्षम प्लेटफ़ॉर्म</h3>
+          <p class="lead">iStart राजस्थान, राज्य सरकार की पहल है जिसका उद्देश्य आइडिया से लेकर ग्रोथ स्टेज तक स्टार्टअप्स की मदद करना है।
+            चूरू में यह केन्द्र स्थानीय प्रतिभा, कॉलेज विद्यार्थियों और फाउंडर्स को <b>इन्क्यूबेशन</b>, <b>वर्कशॉप</b>,
+            <b>फंडिंग मार्गदर्शन</b> और <b>नेटवर्किंग</b> के अवसर देता है।
+          </p>
+        </article>
+        <article class="card">
+          <span class="badge">Spirit of 15th August</span>
+          <h3>गर्व के रंगों में तकनीक</h3>
+          <p>यह पेज पूरी तरह त्रिरंगा बैकग्राउंड, घूमता <b>अशोक चक्र</b> और स्क्रॉल एनीमेशन के साथ—देशभक्ति और टेक का सुंदर मेल।
+            नीचे दिए सेक्शन में सेवाएँ, टाइमलाइन व स्टार्टअप कहानियाँ देखें।
+          </p>
+        </article>
+        <article class="card">
+          <span class="badge">For Founders</span>
+          <h3>कौन लाभ उठा सकता है?</h3>
+          <p>Students • Early-stage founders • MSMEs • Women entrepreneurs • Innovators
+            — बस आइडिया/प्रोटोटाइप लेकर आएँ और iStart टीम से मार्गदर्शन पाएँ।</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHTS -->
+    <section id="highlights" class="container reveal">
+      <span class="tag">Highlights • प्रमुख सेवाएँ</span>
+      <h2 class="title">iStart Churu आपके लिए क्या करता है?</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Incubation & Co‑Working</h3>
+          <p>सीटिंग, हाई-स्पीड इंटरनेट, मीटिंग रूम और समुदाय—सब एक ही जगह।</p>
+        </div>
+        <div class="card">
+          <h3>Mentorship Clinics</h3>
+          <p>बिज़नेस मॉडल, ब्रांडिंग, प्रोडक्ट और GTM पर अनुभवी मेंटर्स के सत्र।</p>
+        </div>
+        <div class="card">
+          <h3>Pitch & Funding Readiness</h3>
+          <p>Pitch‑deck रिव्यू, फाइनेंशियल्स और निवेशकों से परिचय के अवसर।</p>
+        </div>
+        <div class="card">
+          <h3>Govt. Schemes Connect</h3>
+          <p>सरकारी योजनाएँ, चुनौतियाँ और स्टार्टअप-फ्रेंडली प्रोक्योरमेंट से जोड़ना।</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIBBON MARQUEE -->
+    <div class="ribbon" aria-label="updates">
+      <div class="track">
+        <span class="chip">🇮🇳 जय हिंद</span>
+        <span class="chip">🚀 Startup Rajasthan</span>
+        <span class="chip">💡 Innovation • Churu</span>
+        <span class="chip">🤝 Mentorship</span>
+        <span class="chip">🏛️ Government Partnerships</span>
+        <span class="chip">📈 Growth & Markets</span>
+        <span class="chip">🇮🇳 जय हिंद</span>
+        <span class="chip">🚀 Startup Rajasthan</span>
+        <span class="chip">💡 Innovation • Churu</span>
+        <span class="chip">🤝 Mentorship</span>
+        <span class="chip">🏛️ Government Partnerships</span>
+        <span class="chip">📈 Growth & Markets</span>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="container reveal">
+      <span class="tag">Journey • सफर</span>
+      <h2 class="title">एक स्टार्टअप की यात्रा (उदाहरण)</h2>
+      <div class="timeline">
+        <div class="step"><b>Ideation:</b> समस्या की पहचान, सॉल्यूशन स्केच और मेंटर कनेक्ट।</div>
+        <div class="step" style="margin-top:14px"><b>MVP:</b> प्रोटोटाइप बनाकर iStart के टेस्ट‑यूज़र्स से फीडबैक।</div>
+        <div class="step" style="margin-top:14px"><b>Pilot:</b> लोकल पार्टनर्स/डिपार्टमेंट्स के साथ पायलट रन।</div>
+        <div class="step" style="margin-top:14px"><b>Scale:</b> निवेश, स्केल‑अप और बाज़ार विस्तार।</div>
+      </div>
+    </section>
+
+    <!-- STARTUPS SCROLLER (placeholders you can edit) -->
+    <section id="startups" class="container reveal">
+      <span class="tag">Community • स्टार्टअप्स</span>
+      <h2 class="title">चूरू के उभरते स्टार्टअप्स</h2>
+      <div class="scroller">
+        <div class="card"><h3>AgriTech Churu</h3><p>किसानों के लिए IoT आधारित सिंचाई समाधान।</p></div>
+        <div class="card"><h3>She‑Craft</h3><p>महिला कारीगरों का ई‑कॉमर्स ब्रांड।</p></div>
+        <div class="card"><h3>Desert EV</h3><p>ग्रामीण मोबिलिटी के लिए किफायती ईवी किट।</p></div>
+        <div class="card"><h3>Smart Hostels</h3><p>कॉलेज होस्टल मैनेजमेंट SaaS।</p></div>
+        <div class="card"><h3>Churu Bites</h3><p>स्थानीय मिलेट‑आधारित स्नैक्स ब्रांड।</p></div>
+      </div>
+    </section>
+
+    <!-- VISIT / MAP -->
+    <section id="visit" class="container reveal">
+      <span class="tag">Visit • लोकेशन</span>
+      <h2 class="title">iStart Churu कहाँ है?</h2>
+      <div class="grid">
+        <div class="card">
+          <p>नज़दीकी कॉलेज, प्रशासनिक भवन या जिला मुख्यालय क्षेत्र में iStart सुविधा उपलब्ध हो सकती है।
+            विज़िट से पहले आधिकारिक स्रोतों से पता और समय अवश्य जाँचें।</p>
+          <a class="btn btn-outline" href="#" onclick="alert('यह डेमो है — यहाँ आधिकारिक लिंक जोड़ें।')">Apply / Contact (डेमो)</a>
+        </div>
+        <div class="card" style="padding:0; overflow:hidden">
+          <iframe title="Churu, Rajasthan" style="border:0; width:100%; height:320px" loading="lazy" allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14086.101624769501!2d74.948!3d28.305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3943a112d3f9a2a7%3A0x8a8e8a77f1e8f21!2sChuru%2C%20Rajasthan!5e0!3m2!1sen!2sin!4v1689777777777"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">🇮🇳 वंदे मातरम् • जय हिंद • Made with ♥ for Independence Day</div>
+  </footer>
+
+  <!-- Fireworks Canvas -->
+  <canvas id="fw" width="800" height="400" style="position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:20"></canvas>
+  <div class="floating-btn">
+    <button class="btn btn-primary" onclick="celebrate()">🎉 Celebrate</button>
+  </div>
+
+  <script>
+    // --- Simple Scroll Reveal ---
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // --- Minimal fireworks animation (canvas) ---
+    const canvas = document.getElementById('fw');
+    const ctx = canvas.getContext('2d');
+    let W, H; const DPR = Math.max(1, window.devicePixelRatio || 1);
+    function resize(){ W=canvas.width=innerWidth*DPR; H=canvas.height=innerHeight*DPR; }
+    addEventListener('resize', resize); resize();
+
+    const colors = ['#FF9933', '#FFFFFF', '#138808', '#000080'];
+    let sparks=[]; let playing=false; let frame;
+
+    function boom(x,y){
+      const n=140; const speed=3; const life=60+Math.random()*30;
+      for(let i=0;i<n;i++){
+        const a = Math.random()*Math.PI*2;
+        sparks.push({
+          x:x, y:y, vx:Math.cos(a)*speed*(.5+Math.random()), vy:Math.sin(a)*speed*(.5+Math.random()),
+          life:life, age:0, color:colors[(Math.random()*colors.length)|0]
+        });
+      }
+    }
+
+    function step(){
+      ctx.clearRect(0,0,W,H);
+      for(let i=sparks.length-1;i>=0;i--){
+        const p=sparks[i]; p.age++;
+        p.vy += 0.03*DPR; // gravity
+        p.x += p.vx*DPR; p.y += p.vy*DPR;
+        const alpha = 1 - p.age/p.life;
+        if(alpha<=0){ sparks.splice(i,1); continue; }
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = p.color;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 2.2*DPR, 0, Math.PI*2); ctx.fill();
+      }
+      if(playing || sparks.length){ frame=requestAnimationFrame(step); } else cancelAnimationFrame(frame);
+    }
+
+    function celebrate(){
+      playing=true; step();
+      for(let i=0;i<6;i++){
+        setTimeout(()=>boom(Math.random()*W, Math.random()*H*0.6 + H*0.2), i*220);
+      }
+      setTimeout(()=>{ playing=false; }, 4000);
+    }
+
+    // Trigger a gentle celebration on load on 15 August
+    const today = new Date();
+    if(today.getMonth()===7 && today.getDate()===15){ setTimeout(celebrate, 800); }
+  </script>
+</body>
+</html>

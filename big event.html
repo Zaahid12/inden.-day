@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Big Events on Independence Day</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('background.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+
+        color: #fff;
+    }
+
+    /* Fullscreen Background */
+    .hero {
+        position: relative;
+        height: 100vh;
+        background: url('bg-events.jpg') no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+    }
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+    .hero-content h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+    .hero-content p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: auto;
+    }
+
+    /* Events Section */
+    .events {
+        max-width: 1100px;
+        margin: auto;
+        padding: 50px 20px;
+    }
+    .event {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 60px;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s ease;
+        background: rgba(255,255,255,0.08);
+        padding: 20px;
+        border-radius: 12px;
+    }
+    .event img {
+        width: 320px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    .event-text {
+        flex: 1;
+    }
+    .event-text h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+        color: #97690b;
+    }
+    .event-text p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #220109;
+    }
+
+    /* Alternate Layout */
+    .event.reverse {
+        flex-direction: row-reverse;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .event {
+            flex-direction: column;
+            text-align: center;
+        }
+        .event.reverse {
+            flex-direction: column;
+        }
+        .event img {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">🇮🇳 Some Legends Of Freedom </div>
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul id="navLinks">
+        <li><a href="home.html">Home</a></li>
+
+    </ul>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    nav .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #B22222;
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li {
+        margin-left: 20px;
+    }
+    nav ul li a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #222;
+        font-size: 1rem;
+        transition: color 0.3s;
+        background: rgba(252, 86, 20, 0.8);
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+    nav ul li a:hover {
+        color: #B22222;
+    }
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .menu-toggle span {
+        height: 3px;
+        width: 25px;
+        background: #cfa7a7;
+        margin: 4px 0;
+        border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+        nav ul {
+            display: none;
+            flex-direction: column;
+            background: rgba(255,255,255,0.9);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+        nav ul.show {
+            display: flex;
+        }
+        nav ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .menu-toggle {
+            display: flex;
+        }
+    }
+</style>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
+
+<!-- Hero Section -->
+<div class="hero">
+    <div class="hero-content">
+        <h1>Big Events on Independence Day</h1>
+        <p>भारत में स्वतंत्रता दिवस पर आयोजित प्रमुख कार्यक्रम जो हमारे देश की एकता और गर्व को दर्शाते हैं।</p>
+    </div>
+</div>
+
+<!-- Events Section -->
+<div class="events">
+
+    <div class="event">
+        <img src="image copy 33.png" alt="Flag Hoisting">
+        <div class="event-text">
+            <h2>लाल किले पर ध्वजारोहण</h2>
+            <p>हर साल 15 अगस्त को प्रधानमंत्री लाल किले से राष्ट्रीय ध्वज फहराते हैं और राष्ट्र को संबोधित करते हैं। यह परंपरा 1947 से चली आ रही है और इसमें हजारों लोग शामिल होते हैं।</p>
+        </div>
+    </div>
+
+    <div class="event reverse">
+        <img src="image copy 34.png" alt="Parade">
+        <div class="event-text">
+            <h2>देशभक्ति परेड</h2>
+            <p>स्वतंत्रता दिवस पर देशभर में परेड का आयोजन किया जाता है जिसमें भारतीय सेना, नौसेना और वायुसेना की ताकत प्रदर्शित की जाती है।</p>
+        </div>
+    </div>
+
+    <div class="event">
+        <img src="image copy 35.png" alt="Cultural Programs">
+        <div class="event-text">
+            <h2>सांस्कृतिक कार्यक्रम</h2>
+            <p>स्कूल, कॉलेज और संस्थानों में बच्चों और युवाओं द्वारा देशभक्ति गीत, नृत्य और नाटक प्रस्तुत किए जाते हैं जो आज़ादी के महत्व को दर्शाते हैं।</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Fade-in on scroll
+    const events = document.querySelectorAll('.event');
+    window.addEventListener('scroll', () => {
+        events.forEach(event => {
+            const rect = event.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                event.style.opacity = 1;
+                event.style.transform = 'translateY(0)';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

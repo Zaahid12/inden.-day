@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us - RJTechforce</title>
+    <link rel="stylesheet" href="contactUs.css">
+    <style>body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, orange, white, white, green);
+    text-align: center;
+    color: #222;
+}
+
+header {
+    padding: 30px 10px;
+    background-color: rgba(255,255,255,0.85);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 36px;
+}
+
+header p {
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.about, .members {
+    background: rgba(255,255,255,0.9);
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+h2 {
+    color: #ff6600;
+}
+
+.member-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.member {
+    background: #f0f0f0;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    width: 200px;
+    transition: transform 0.3s;
+}
+
+.member:hover {
+    transform: scale(1.05);
+    background: #ddd;
+}
+
+footer {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(255,255,255,0.85);
+    font-size: 25px;
+}</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">🇮🇳 Some Legends Of Freedom </div>
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul id="navLinks">
+        <li><a href="home.html">Home</a></li>
+
+    </ul>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    nav .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #B22222;
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li {
+        margin-left: 20px;
+    }
+    nav ul li a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #222;
+        font-size: 1rem;
+        transition: color 0.3s;
+        background: rgba(252, 86, 20, 0.8);
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+    nav ul li a:hover {
+        color: #B22222;
+    }
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .menu-toggle span {
+        height: 3px;
+        width: 25px;
+        background: #cfa7a7;
+        margin: 4px 0;
+        border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+        nav ul {
+            display: none;
+            flex-direction: column;
+            background: rgba(255,255,255,0.9);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+        nav ul.show {
+            display: flex;
+        }
+        nav ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .menu-toggle {
+            display: flex;
+        }
+    }
+</style>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
+
+
+    <header>
+        <h1>🇮🇳 RJTechforce 🇮🇳</h1>
+        <p>Innovating for a Better Tomorrow</p>
+    </header>
+
+    <section class="about">
+        <h2>RJ TechForce :</h2>
+        <p>
+          RJ TechForce is a small web developer team from Churu district, where not a single member is older than 18 years.
+As a team, we created this website within just 2 days.
+We built it using HTML, CSS, and JavaScript, putting in all our efforts and creativity to make it the best we could.
+
+Our aim is to use technology to bring new ideas to life and to show that no matter the age, with passion and hard work, even the biggest goals can be achieved.
+        </p>
+    </section>
+
+    <section class="members">
+        <h2>Meet Our Team :</h2>
+        <div class="member-list">
+            <div>  
+                <h3>Zahid Khan:</h3>
+                <p>Zahid Khan,
+A 16 year student, member of RJ TechForce, who is currently studying in 12th grade (Science stream) and is learning coding alongside his schooling.</p>
+            </div>
+            <div>  
+                <h3>Mohit Darji :</h3>
+                <p>Mohit Darji,
+A 16 year student, member of RJ TechForce, who is currently studying in 12th grade (Commerce stream) and is learning coding alongside his schooling.</p>
+            </div>
+            <div>  
+                <h3>Ashish Pareek :</h3>
+                <p>Asish Pareek,
+A 18 year student, member of RJ TechForce, who is currently studying in 12th grade (Science stream) and is learning coding alongside his schooling.</p>
+            </div>
+            <div>  
+                <h3>Shiva :</h3>
+                <p>Shiva,
+A 17 year student, member of RJ TechForce, who is currently studying in 10th grade and is learning coding alongside his schooling.</p>
+            </div>
+            <div>  
+                <h3>Mayank Sharma :</h3>
+                <p>Mayank Sharma,
+A 16 year student, member of RJ TechForce, who recently passed 12th (Art's stream) and is learning coding alongside his study.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>🙏 Thanks a lot for visiting our site 🙏</p>
+    </footer>
+
+</body>
+</html>

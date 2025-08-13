@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us - RJ TechForce</title>
+    <link rel="stylesheet" href="contect.css">
+    <style>body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg, orange, white, green);
+    text-align: center;
+    color: #222;
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+header {
+    padding: 30px 10px;
+    background-color: rgba(255,255,255,0.85);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 36px;
+}
+
+header p {
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.about, .members, .contact-info {
+    background: rgba(255,255,255,0.9);
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+h2 {
+    color: #ff6600;
+}
+
+.member-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.member {
+    background: #f0f0f0;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    width: 200px;
+    transition: transform 0.3s;
+}
+
+.members{
+    display: block;
+}
+
+.member:hover {
+    transform: scale(1.05);
+    background: #ddd;
+}
+
+.contact-info a {
+    color: #ff6600;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(255,255,255,0.85);
+}
+
+a{
+    color: orange;
+}
+
+a:hover{
+    color: blue;
+}</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">🇮🇳 Some Legends Of Freedom </div>
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul id="navLinks">
+        <li><a href="home.html">Home</a></li>
+
+    </ul>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    nav .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #B22222;
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li {
+        margin-left: 20px;
+    }
+    nav ul li a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #222;
+        font-size: 1rem;
+        transition: color 0.3s;
+        background: rgba(252, 86, 20, 0.8);
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+    nav ul li a:hover {
+        color: #B22222;
+    }
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .menu-toggle span {
+        height: 3px;
+        width: 25px;
+        background: #cfa7a7;
+        margin: 4px 0;
+        border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+        nav ul {
+            display: none;
+            flex-direction: column;
+            background: rgba(255,255,255,0.9);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+        nav ul.show {
+            display: flex;
+        }
+        nav ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .menu-toggle {
+            display: flex;
+        }
+    }
+</style>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
+
+
+
+    <header>
+        <h1>🇮🇳 RJ TechForce 🇮🇳</h1>
+        <p>Connecting with us is just a click away</p>
+    </header>
+
+    <section class="about">
+        <h2>About RJ TechForce</h2>
+        <p>
+            RJ TechForce is a small but passionate web developer team from Churu district,
+            where no member is older than 18 years.  
+            Within just 2 days, we created this website using HTML, CSS, and JavaScript, 
+            putting our full efforts and creativity into it.  
+            Our aim is to use technology to bring fresh ideas to life and inspire others to create.
+        </p>
+    </section>
+
+    <section class="members">
+        <h2>Our Team</h2>
+        <div class="member-list">
+            <div class="member">
+                <h3>Zahid Khan</h3>
+                <p>Contact number : 63775155888</p>
+                <p>Email id : <a href="">zaahidkhan98@gmail.com</a></p>
+            </div>
+            <div class="member">
+                <h3>Mohit Darji</h3>
+                <p>Contact number : 9876543210</p>
+                <p>Email id : <a href="">mohitdarji@gmail.com</a></p>
+            </div>
+            <div class="member">
+                <h3>Aashish Pareek</h3>
+                <p>Contact number : 9876543210</p>
+                <p>Email id : <a href="">ashishpareek@gmail.com</a></p>
+            </div>
+             <div class="member">
+                <h3>Shiva</h3>
+                <p>Contact number : 9876543210</p>
+                <p>Email id : <a href="">shiva@gmail.com</a></p>
+            </div>
+             <div class="member">
+                <h3>Mayank Sharma</h3>
+                <p>Contact number : 9876543210</p>
+                <p>Email id : <a href="">mayankmaharshi@gmail.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-info">
+        <h2>Contact Information</h2>
+        <p>📧 Email: <a href="mailto:rjtechforce@gmail.com">rjtechforce@gmail.com</a></p>
+        <p>💬 Telegram: <a href="https://t.me/rjtechforce" target="_blank">Join Our Telegram Group</a></p>
+    </section>
+
+    <footer>
+        <p>© 2025 RJ TechForce | All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About CodeYogi — RJ TechForce</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Inter:wght@300;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --saffron:#FF9933; --white:#ffffff; --green:#138808; --ink:#0b2340;
+    --card-bg: rgba(255,255,255,0.92);
+    --glass: rgba(255,255,255,0.6);
+    --max-width:1200px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: 'Inter', system-ui, Arial, sans-serif;
+    color:var(--ink);
+    background: url('background.html') center/cover no-repeat fixed;
+    min-height:100vh;
+  }
+  /* tiranga overlay to keep readability */
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none;
+    background: linear-gradient(180deg, rgba(255,153,51,0.25), rgba(255,255,255,0.45), rgba(19,136,8,0.22));
+    z-index:0;
+  }
+
+  /* NAVBAR container slot (injected) */
+  #navbar { position:relative; z-index:6; }
+
+  /* Page container */
+  .page {
+    position:relative; z-index:3;
+    max-width:var(--max-width);
+    margin: 18px auto;
+    padding: 18px;
+  }
+
+  /* HERO */
+  .hero{
+    display:flex; gap:24px; align-items:center; justify-content:space-between;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+    border-radius:14px; padding:28px;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.12);
+  }
+  .hero .left { flex:1; min-width:0; }
+  .hero h1{
+    margin:0 0 10px 0;
+    font-family: 'Merriweather', serif;
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    color:var(--ink);
+  }
+  .hero p{ margin:0; color:#26404d; line-height:1.6; font-size:1rem; }
+  .hero .cta { margin-top:16px; display:flex; gap:12px; flex-wrap:wrap; }
+  .btn {
+    background:var(--ink); color:var(--white); padding:10px 14px; border-radius:10px;
+    text-decoration:none; font-weight:700; display:inline-block;
+  }
+  .btn.secondary { background:transparent; color:var(--ink); border:2px solid rgba(0,0,0,0.06); }
+
+  .hero .media { width:380px; max-width:38%; border-radius:12px; overflow:hidden; flex-shrink:0; }
+  .hero .media img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  @media (max-width:900px){
+    .hero{ flex-direction:column; align-items:flex-start; }
+    .hero .media{ width:100%; max-width:100%; }
+  }
+
+  /* MISSION */
+  .mission{
+    margin-top:20px; background:var(--card-bg); padding:18px; border-radius:12px;
+    box-shadow: 0 8px 20px rgba(2,6,23,0.08);
+  }
+  .mission h2{ margin:0 0 8px; color:#B22222; }
+  .mission p{ margin:0; line-height:1.7; color:#223841; }
+
+  /* STATS */
+  .stats { display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; }
+  .stat {
+    flex:1; min-width:140px; background:var(--card-bg); border-radius:10px; padding:16px;
+    text-align:center; box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+  }
+  .stat strong{ display:block; font-size:1.9rem; color:var(--ink); }
+  .stat small{ color:#355a66; font-weight:600; }
+
+  /* TIMELINE */
+  .timeline {
+    margin-top:28px;
+    display:grid;
+    gap:10px;
+  }
+  .timeline .item{
+    display:flex; gap:14px; align-items:flex-start; background:var(--card-bg); padding:12px 14px; border-radius:10px;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.05);
+  }
+  .timeline .year {
+    width:84px; font-weight:800; color:#0b2340;
+    display:flex; align-items:center; justify-content:center; font-size:1rem;
+    background: linear-gradient(180deg, rgba(255,153,51,0.12), rgba(19,136,8,0.08));
+    border-radius:8px;
+  }
+  .timeline .desc{ color:#294b57; line-height:1.6; }
+
+  /* HOW WE WORK */
+  .how {
+    margin-top:26px; display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:12px;
+  }
+  .how .card {
+    background:var(--card-bg); padding:14px; border-radius:12px; text-align:left;
+    box-shadow: 0 8px 22px rgba(2,6,23,0.06);
+  }
+  .how .card h3{ margin:0 0 8px; color:#B22222; }
+  .how .card p{ margin:0; color:#26404d; line-height:1.6; }
+  /* GALLERY */
+  .gallery {
+    margin-top:26px; display:grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap:10px;
+  }
+  .gallery img{ width:100%; height:180px; object-fit:cover; border-radius:10px; box-shadow: 0 8px 18px rgba(2,6,23,0.08); }
+
+  /* TESTIMONIALS */
+  .testimonials { margin-top:26px; display:flex; gap:12px; flex-wrap:wrap; }
+  .testimonials .ts {
+    background:var(--card-bg); padding:14px; border-radius:12px; min-width:240px; box-shadow: 0 8px 20px rgba(2,6,23,0.06);
+  }
+  .ts p{ margin:0 0 8px; color:#163240; line-height:1.6; }
+  .ts .who{ font-weight:700; color:#0b2340; font-size:.95rem; }
+
+  /* CTA banner */
+  .cta-banner {
+    margin-top:30px; background: linear-gradient(90deg, rgba(255,153,51,0.9), rgba(19,136,8,0.9));
+    color:white; padding:20px; border-radius:12px; display:flex; gap:16px; align-items:center; justify-content:space-between;
+  }
+  .cta-banner .left h3{ margin:0 0 6px; }
+  .cta-banner .actions a{ margin-left:8px; }
+
+  /* FOOTER */
+  footer{
+    margin-top:28px; padding:18px; text-align:center; color:#0b2340;
+  }
+
+  /* small screens tweaks */
+  @media (max-width:640px){
+    .hero { padding:16px; }
+    .mission, .stat, .timeline .item, .how .card { padding:12px; }
+    .gallery img { height:140px; }
+    .hero h1 { font-size:1.4rem; }
+  }
+      /* --- Animations --- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+@keyframes fadeIn {
+  from { opacity: 0;}
+  to   { opacity: 1;}
+}
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 1s cubic-bezier(.77,0,.18,1) forwards;
+}
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.2s cubic-bezier(.77,0,.18,1) forwards;
+}
+.gallery img {
+  transition: transform 0.4s cubic-bezier(.77,0,.18,1), box-shadow 0.3s;
+}
+.gallery img:hover {
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow: 0 12px 32px rgba(2,6,23,0.18);
+}
+.timeline .item {
+  opacity: 0;
+  animation: fadeUp 0.9s cubic-bezier(.77,0,.18,1) forwards;
+}
+</style>
+</head>
+<body class="fade-in">
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">🇮🇳 Some Legends Of Freedom </div>
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul id="navLinks">
+        <li><a href="home.html">Home</a></li>
+
+    </ul>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    nav .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #B22222;
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li {
+        margin-left: 20px;
+    }
+    nav ul li a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #222;
+        font-size: 1rem;
+        transition: color 0.3s;
+        background: rgba(252, 86, 20, 0.8);
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+    nav ul li a:hover {
+        color: #B22222;
+    }
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .menu-toggle span {
+        height: 3px;
+        width: 25px;
+        background: #cfa7a7;
+        margin: 4px 0;
+        border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+        nav ul {
+            display: none;
+            flex-direction: column;
+            background: rgba(255,255,255,0.9);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+        nav ul.show {
+            display: flex;
+        }
+        nav ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .menu-toggle {
+            display: flex;
+        }
+    }
+
+</style>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
+<!-- NAVBAR slot (will be fetched) -->
+
+
+<!-- MAIN PAGE -->
+<main class="page" role="main">
+
+  <!-- HERO -->
+  <section class="hero fade-up" aria-labelledby="hero-title">
+    <div class="left">
+      <h1 id="hero-title">CodeYogi — गाँव के बच्चों के लिए Coding & Digital Skills</h1>
+      <p>
+        हमारा उद्देश्य है ग्रामीण बच्चों को आधुनिक तकनीकी कौशल सिखाकर उन्हें आत्मनिर्भर बनाना। 
+        स्मार्टफोन-फर्स्ट और हिन्दी-फर्स्ट पद्धति के ज़रिये हम शिक्षा की दूरी घटाते हैं और स्थानीय स्तर पर रोजगार के नए मार्ग खोलते हैं।
+      </p>
+
+      <div class="cta">
+        <a class="btn" href="mailto:hello@codeyogi.org">Join / Contact</a>
+
+      </div>
+    </div>
+
+    <div class="media" aria-hidden="true">
+      <!-- replace with real image -->
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=1f0e3d6cf2e3aa3d" alt="Kids learning on phone">
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="mission" aria-labelledby="mission-title">
+    <h2 id="mission-title">हमारा मिशन</h2>
+    <p>
+      CodeYogi की नींव इस विश्वास पर रखी गई कि प्रतिभा किसी स्थान नहीं देखती — चाहे वह शहर हो या गाँव। 
+      हम छोटे-से-छोटे गाँवों तक पहुँचकर बच्चों को कोडिंग, computational thinking और डिजिटल साक्षरता सिखाते हैं। 
+      हमारा कोर्स-प्लेयर स्मार्टफोन-मैत्री है, सामग्री सरल हिन्दी में है और AI-assisted अभ्यास हर बच्चे को उसकी गति के अनुसार मार्गदर्शित करता है। 
+      शिक्षा के इस लोकतंत्रीकरण से हमारी कोशिश है कि आने वाली पीढ़ी तकनीक का उपयोग करके अपने समुदाय में सकारात्मक बदलाव लाए।
+    </p>
+  </section>
+
+  <!-- IMPACT STATS -->
+  <section class="stats" aria-label="Impact statistics">
+    <div class="stat">
+      <strong>44</strong>
+      <small>ज़िले</small>
+      <div style="margin-top:8px; color:#2f5561">सरकारी और सामुदायिक स्कूलों में पहुँच</div>
+    </div>
+    <div class="stat">
+      <strong>1,336</strong>
+      <small>सरकारी स्कूल</small>
+      <div style="margin-top:8px; color:#2f5561">नियमित पाठ्यक्रम और वर्कशॉप्स</div>
+    </div>
+    <div class="stat">
+      <strong>72,879</strong>
+      <small>छात्र</small>
+      <div style="margin-top:8px; color:#2f5561">हमें जो सीख रहे हैं</div>
+    </div>
+    <div class="stat">
+      <strong>5+</strong>
+      <small>साल का अनुभव</small>
+      <div style="margin-top:8px; color:#2f5561">स्थानीय जुड़ाव और परिणाम</div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline" aria-labelledby="timeline-title">
+    <h2 id="timeline-title" style="margin:10px 0 6px;color:#B22222">हमारी यात्रा (Timeline)</h2><div class="item">
+      <div class="year">2019</div>
+      <div class="desc">CodeYogi की शुरुआत: एक छोटे-से pilot से शुरुआत — 3 जिले, 10 स्कूलों में पहली बार स्मार्टफोन-बेस्ड कोर्स डाला गया।</div>
+    </div>
+
+    <div class="item">
+      <div class="year">2020</div>
+      <div class="desc">COVID के दौरान डिजिटल क्लास का विस्तार; offline+online हाइब्रिड मॉडल विकसित किया गया।</div>
+    </div>
+
+    <div class="item">
+      <div class="year">2021</div>
+      <div class="desc">हिन्दी-फर्स्ट कंटेंट और AI-पढ़ाने वाले छोटे मॉड्यूल पेश किए गए — छात्रों की engagement में बढ़ोतरी।</div>
+    </div>
+
+    <div class="item">
+      <div class="year">2022</div>
+      <div class="desc">सरकारी स्कूलों के साथ partnership; शिक्षकों के लिए training modules शुरू।</div>
+    </div>
+
+    <div class="item">
+      <div class="year">2023</div>
+      <div class="desc">ग्रामीण स्टार्टअप और local placement के लिए vocational tracks की शुरुआत।</div>
+    </div>
+
+    <div class="item">
+      <div class="year">2024</div>
+      <div class="desc">70k+ learner milestone; कई districts में scale-up हुआ और community feedback का उपयोग कर पाठ्यक्रम सुधार।</div>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK -->
+  <section aria-labelledby="how-title" style="margin-top:18px;">
+    <h2 id="how-title" style="color:#B22222; margin:0 0 10px 0">हम कैसे काम करते हैं</h2>
+    <div class="how">
+      <div class="card">
+        <h3>Smartphone-first Courses</h3>
+        <p>ज्यादातर ग्रामीण बच्चों के पास स्मार्टफोन होता है—हमारे पाठ छोटे, इंटरैक्टिव और ऑफलाइन-cacheable हैं ताकि सीमित नेटवर्क में भी पढ़ाई जारी रहे।</p>
+      </div>
+      <div class="card">
+        <h3>हिन्दी-फर्स्ट कंटेंट</h3>
+        <p>भाषा बाधा को हटाने के लिए पूरा कंटेंट सरल हिन्दी में है—प्रशिक्षक और छात्र दोनों के लिए सहज अनुभव।</p>
+      </div>
+      <div class="card">
+        <h3>शिक्षक प्रशिक्षण</h3>
+        <p>हम स्थानीय शिक्षकों को ट्रेन करते हैं, ताकि वे बच्चों को मार्गदर्शन दे सकें और कक्षाओं को स्थायी बना सकें।</p>
+      </div>
+      <div class="card">
+        <h3>AI-assisted Guidance</h3>
+        <p>सीखने की गति के अनुसार AI-suggestions और practice problems मिलते हैं—हर बच्चा अपने अनुसार प्रगति कर सके।</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section aria-labelledby="gallery-title" style="margin-top:20px;">
+    <h2 id="gallery-title" style="color:#B22222; margin:0 0 10px 0">Gallery — हमारे क्लासरूम</h2>
+    <div class="gallery" role="list">
+      <img src="https://images.unsplash.com/photo-1532619675605-0f88b1b9d5d5?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=f9a3b0a9a7e1" alt="kids coding 1">
+      <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2f3e3bd2b3af" alt="kids coding 2">
+      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7a7d2f1f7dfa" alt="teacher teaching">
+      <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=3c71d6dc2a6e" alt="student with phone">
+      <img src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=6e8a1bd1b2af" alt="group learning">
+      <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=9b1d5e0be3b9" alt="workshop session">
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section aria-labelledby="testi-title" style="margin-top:22px;">
+    <h2 id="testi-title" style="color:#B22222; margin:0 0 10px 0">Students & Teacher Stories</h2>
+    <div class="testimonials">
+      <div class="ts">
+        <p>“पहले मुझे नहीं पता था कोडिंग क्या होती है — अब मैंने एक छोटी ऐप बनाना सीखा। मेरे गाँव में भी बच्चे कॉलेज के बिना सीख सकते हैं।”</p>
+        <div class="who">— राधा, छात्रा (Class 10)</div>
+      </div>
+      <div class="ts">
+        <p>“Teacher training से मेरे अंदर आत्मविश्वास आया — अब मैं बच्चों को रोज़ कुछ नया सिखाती हूँ और मेरे गावँ के माता-पिता भी खुश हैं।”</p>
+        <div class="who">— सुशिला देवी, स्कूल शिक्षक</div>
+      </div>
+
+      <div class="ts">
+        <p>“Application development track ने मुझे freelancing के बारे में सिखाया — मैंने शहर जाकर part-time काम शुरू कर दिया।”</p>
+        <div class="who">— मोहित, विद्यार्थी (18)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner" aria-label="Call to action">
+    <div class="left">
+      <h3>आप भी जुड़िए — बनाइये भविष्य</h3>
+      <div>Volunteer करें, पार्टनरशिप करें या शिक्षण सामग्री दान करें — हर मदद छोटे-बड़े बदलाव लाती है।</div>
+    </div>
+    <div class="actions">
+      <a class="btn" href="mailto:hello@codeyogi.org">Contact Us</a>
+      <a class="btn secondary" href="volunteer.html">Become Volunteer</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="max-width:var(--max-width); margin:auto; padding:8px;">
+      <div style="margin-bottom:8px; font-weight:700">RJ TechForce × CodeYogi</div>
+      <div style="font-size:.95rem; color:#314b57">© 2024 RJ TechForce. All rights reserved. Designed with ❤️ for rural education.</div>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+// filepath: /home/pragati/Desktop/15 agust special/ special/codeyogi.html
+function animateOnScroll() {
+  document.querySelectorAll('.fade-up, .fade-in, .timeline .item').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 60) {
+      el.style.animationDelay = (el.dataset.delay || '0s');
+      el.classList.add('animated');
+    }
+  });
+}
+window.addEventListener('scroll', animateOnScroll);
+window.addEventListener('DOMContentLoaded', () => {
+  // Add fade classes to sections/cards
+  document.querySelectorAll('.hero, .mission, .stats, .timeline, .how, .gallery, .testimonials, .cta-banner').forEach((el,i) => {
+    el.classList.add('fade-up');
+    el.dataset.delay = `${i*0.15}s`;
+  });
+  // Timeline items stagger
+  document.querySelectorAll('.timeline .item').forEach((el,i) => {
+    el.style.animationDelay = `${i*0.18+0.3}s`;
+  });
+  animateOnScroll();
+});
+</script>
+
+</body>
+</html>

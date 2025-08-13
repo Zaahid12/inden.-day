@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>स्वतंत्रता दिवस • चूरू, राजस्थान की सैर</title>
+  <meta name="description" content="स्वतंत्रता दिवस पर चूरू (राजस्थान) की खोज के लिए एनिमेटेड, अनोखे डिज़ाइन वाली एक सिंगल‑फाइल वेबसाइट।" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+
+      --ink:#0F172A;
+      --muted:#97a3b6;
+      --glass: rgba(255,255,255,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      
+      margin:0; font-family:'Noto Sans Devanagari',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; color:#0e1628;
+      /* तिरंगे के रंगों वाला बैकग्राउंड */
+      background:
+        radial-gradient(700px 280px at 80% -10%, rgba(255,153,51,.12), transparent 60%),
+        radial-gradient(700px 280px at 20% 110%, rgba(19,136,8,.12), transparent 60%),
+        linear-gradient(180deg,var(--kesariya) 0 33.33%, var(--safed) 33.33% 66.66%, var(--hara) 66.66% 100%);
+      background-attachment: fixed;
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{width:min(1100px,92%); margin-inline:auto}
+
+    /* --- NAV --- */
+    nav{
+      position:sticky; top:0; z-index:50; backdrop-filter: blur(8px); 
+      background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.5)); 
+      border-bottom:1px solid rgba(0,0,0,.08)
+    }
+    nav .bar{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.5px}
+    .chakra{width:28px; height:28px}
+    .chakra svg{width:100%; height:100%; animation:spin 14s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .navlinks{display:flex; gap:14px; font-weight:700}
+    .pill{padding:8px 14px; border-radius:999px; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.08); box-shadow:0 6px 18px rgba(0,0,0,.06)}
+
+    /* --- HERO --- */
+    .hero{position:relative; padding:78px 0 56px}
+    .headline{font-size:clamp(30px,4vw,50px); line-height:1.1; font-weight:800;}
+    .headline .grad{background:linear-gradient(90deg,var(--kesariya),var(--neel),var(--hara)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .sub{color:#1f2a44; font-size:clamp(14px,1.6vw,17px)}
+
+    /* Waving tricolor ribbon (नीचे) */
+    .ribbon{position:absolute; inset:auto 0 -16px 0; height:160px; pointer-events:none; mask-image:linear-gradient(to bottom,transparent,black 30%,black 70%,transparent)}
+    .stripe{position:absolute; inset:0; transform-origin:left; animation:wave 9s ease-in-out infinite; opacity:.9}
+    .stripe.saffron{top:0; height:54px; background:linear-gradient(90deg,var(--kesariya),#ffb366 30%,var(--kesariya))}
+    .stripe.white{top:54px; height:54px; background:linear-gradient(90deg,#fff,#f7f7f7,#fff)}
+    .stripe.green{top:108px; height:54px; background:linear-gradient(90deg,var(--hara),#1faa0a 40%,var(--hara)); animation-delay:.3s}
+    @keyframes wave{0%,100%{transform:skewY(0) translateX(0)}50%{transform:skewY(-3deg) translateX(-2%)}}
+
+    /* पतंगें */
+    .kite{position:absolute; width:42px; aspect-ratio:1; background:conic-gradient(from 45deg at 50% 50%, var(--kesariya) 0 90deg, var(--safed) 90deg 180deg, var(--hara) 180deg 270deg, var(--neel) 270deg 360deg); transform:rotate(45deg); border-radius:6px; filter:drop-shadow(0 10px 20px rgba(0,0,0,.2)); opacity:.85; animation:float 18s linear infinite}
+    .kite:after{content:""; position:absolute; inset:auto auto -24px 50%; width:2px; height:28px; background:rgba(0,0,0,.35)}
+    @keyframes float{0%{transform:translateY(0) rotate(45deg)}50%{transform:translateY(-80px) rotate(60deg)}100%{transform:translateY(0) rotate(45deg)}}
+
+    /* कार्ड */
+    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:28px}
+    .card{position:relative; padding:18px; border-radius:22px; background:rgba(255,255,255,.85); border:2px solid rgba(0,0,0,.08); box-shadow:0 18px 40px rgba(0,0,0,.10); transition:transform .35s ease, box-shadow .35s ease}
+    .card:hover{transform:translateY(-6px) rotateX(3deg); box-shadow:0 28px 60px rgba(0,0,0,.18)}
+    .tag{display:inline-block; padding:6px 10px; border-radius:10px; font-size:12px; font-weight:800; letter-spacing:.3px; background:linear-gradient(90deg,rgba(255,153,51,.2),rgba(19,136,8,.2)); border:1px solid rgba(0,0,0,.06)}
+
+    /* सेक्शन */
+    h2{font-size:clamp(22px,2.8vw,32px)}
+    .section{padding:72px 0}
+
+    /* मैप कार्ड (स्टाइलाइज़्ड) */
+    .mapwrap{position:relative; border-radius:28px; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.08); padding:16px}
+    .map{aspect-ratio: 16/9; background: #091227; border-radius:22px; position:relative; overflow:hidden}
+    .map svg{width:100%; height:100%; display:block; filter: drop-shadow(0 20px 40px rgba(0,0,0,.35));}
+    .pulse{fill:#eaffef; stroke:var(--hara); stroke-width:2; filter: drop-shadow(0 0 12px rgba(19,136,8,.6)); transform-origin:center; animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%{transform:scale(.9); opacity:.9}50%{transform:scale(1.15); opacity:1}100%{transform:scale(.9); opacity:.9}}
+
+    /* टाइमलाइन */
+    .timeline{position:relative; margin-top:18px; padding-left:14px}
+    .timeline:before{content:""; position:absolute; left:12px; top:0; bottom:0; width:3px; background:linear-gradient(var(--kesariya),var(--safed),var(--hara)); border-radius:2px}
+    .t-item{position:relative; margin-left:18px; padding:12px 14px 12px 16px; background:rgba(255,255,255,.85); border:1px solid rgba(0,0,0,.08); border-radius:16px; margin-bottom:12px}
+    .t-item:before{content:""; position:absolute; left:-20px; top:16px; width:12px; height:12px; border-radius:50%; background:var(--kesariya); box-shadow:0 0 0 4px rgba(255,153,51,.25)}
+
+    /* फ़ूटर */
+    footer{padding:40px 0 70px; color:#0e1628; text-align:center}
+    .flagfoot{display:inline-flex; gap:8px; align-items:center; font-weight:800}
+    .dot{width:10px; height:10px; border-radius:999px}
+
+    /* 15 अगस्त पॉपअप */
+    .flash{position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.35); backdrop-filter: blur(6px); z-index:60}
+    .flash .box{padding:26px 22px; border-radius:18px; text-align:center; background:linear-gradient(180deg,#ffffff,#f3f6ff); border:1px solid rgba(0,0,0,.08); width:min(520px,92%)}
+    .close{cursor:pointer; border:none; padding:10px 14px; border-radius:12px; font-weight:800; background:linear-gradient(90deg, var(--kesariya), var(--safed), var(--hara)); color:#0a1228}
+
+    /* यूटिलिटी */
+    .muted{opacity:.8}
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">🇮🇳 Some Legends Of Freedom </div>
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul id="navLinks">
+        <li><a href="home.html">Home</a></li>
+
+    </ul>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    nav .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #B22222;
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li {
+        margin-left: 20px;
+    }
+    nav ul li a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #222;
+        font-size: 1rem;
+        transition: color 0.3s;
+        background: rgba(252, 86, 20, 0.8);
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+    nav ul li a:hover {
+        color: #B22222;
+    }
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .menu-toggle span {
+        height: 3px;
+        width: 25px;
+        background: #cfa7a7;
+        margin: 4px 0;
+        border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+        nav ul {
+            display: none;
+            flex-direction: column;
+            background: rgba(255,255,255,0.9);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+        nav ul.show {
+            display: flex;
+        }
+        nav ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .menu-toggle {
+            display: flex;
+        }
+    }
+</style>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
+  <header class="hero container">
+    <div class="ribbon" aria-hidden>
+      <div class="stripe saffron"></div>
+      <div class="stripe white"></div>
+      <div class="stripe green"></div>
+    </div>
+
+    <!-- उड़ती पतंगें -->
+    <div id="kites" aria-hidden></div>
+
+    <h1 class="headline">स्वतंत्रता दिवस पर <span class="grad">चूरू, राजस्थान</span> की सैर</h1>
+    <p class="sub">तिरंगे रंगों वाला बैकग्राउंड, घूमता अशोक चक्र, पतंगें, स्क्रोल ऐनिमेशन और चूरू के प्रमुख आकर्षण — सब एक ही फाइल में।</p>
+
+    <div class="grid">
+      <div class="card">
+        <span class="tag">ताल छापर अभयारण्य</span>
+        <p>काले हिरण और परिंदों का घर। सूर्योदय और गोल्डन आवर सबसे बेहतर समय।</p>
+      </div>
+      <div class="card">
+        <span class="tag">फ्रेस्को हवेलियाँ</span>
+        <p>शेखावाटी शैली की भित्ति‑चित्रों से सजी हवेलियाँ — हर मोड़ पर कला और कहानी।</p>
+      </div>
+      <div class="card">
+        <span class="tag">स्थानीय स्वाद</span>
+        <p>बाजरा रोटी, केर‑सांगरी, रबड़ी। गर्मी में पानी और छाछ साथ रखें।</p>
+      </div>
+      <div class="card">
+        <span class="tag">त्योहारी माहौल</span>
+        <p>15 अगस्त को पतंगबाज़ी, ध्वजारोहण और शाम को आतिशबाज़ी — देशभक्ति का रंग।</p>
+      </div>
+    </div>
+  </header>
+
+  <section id="explore" class="section container">
+    <h2>क्यों जाएँ चूरू?</h2>
+    <p class="muted">थार के किनारे बसा चूरू — घास के मैदान, फ्रेस्को विरासत और शांत मरु‑नगरों का संगम, ऊपर से राजस्थानी मेहमाननवाज़ी।</p>
+
+    <div class="timeline">
+      <div class="t-item"><strong>सुबह</strong> — ताल छापर की सैर, दूरबीन साथ रखें और धीमे चलें।</div>
+      <div class="t-item"><strong>दोपहर</strong> — हवेलियाँ, बावड़ियाँ और गलियाँ; छाछ/नींबू पानी से ताज़गी।</div>
+      <div class="t-item"><strong>शाम</strong> — रेत के टीलों पर सूर्यास्त या छत से नज़ारा; बाज़ार में स्थानीय व्यंजन।</div>
+    </div>
+  </section>
+
+  <section id="map" class="section container">
+    <h2>मानचित्र (स्टाइलाइज़्ड)</h2>
+    <p class="muted">बिंदु पर टैप करें — सरल, सौंदर्यपूर्ण SVG मानचित्र (कोई बाहरी लाइब्रेरी नहीं)।</p>
+
+    <div class="mapwrap">
+      <div class="map" role="img" aria-label="राजस्थान का स्टाइलाइज़्ड मानचित्र जिसमें चूरू हाईलाइट है">
+        <!-- अमूर्त प्रदेश आकार + चूरू और ताल छापर के मार्कर -->
+        <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ra-bg" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#0b1a33"/>
+              <stop offset="1" stop-color="#0a1328"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="450" fill="url(#ra-bg)"/>
+          <path d="M150,120 C210,90 320,80 380,110 C430,135 470,140 520,180 C560,210 590,250 600,300 C600,345 560,370 520,380 C480,390 420,360 360,360 C300,360 240,390 200,360 C160,330 140,280 140,240 C140,200 120,150 150,120 Z" fill="#0f2a4a" stroke="rgba(255,255,255,.08)" stroke-width="2"/>
+
+          <!-- चूरू -->
+          <circle id="dot-churu" class="pulse" cx="370" cy="210" r="7"/>
+          <text x="380" y="206" font-size="14" fill="#d7e7ff">चूरू</text>
+
+          <!-- ताल छापर -->
+          <circle id="dot-tal" cx="345" cy="250" r="6" fill="#eaffef" stroke="#138808" stroke-width="2"/>
+          <text x="356" y="246" font-size="13" fill="#d7e7ff">ताल छापर</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="plan" class="section container">
+    <h2>अपनी 15 अगस्त यात्रा की योजना</h2>
+    <div class="grid">
+      <div class="card">
+        <span class="tag">सबसे अच्छा समय</span>
+        <p>अक्टूबर–फ़रवरी सुहावना मौसम। मॉनसून के बाद (अगस्त–सितंबर) घास हरी और बर्डिंग बढ़िया।</p>
+      </div>
+      <div class="card">
+        <span class="tag">क्या साथ रखें</span>
+        <p>टोपी, धूप का चश्मा, सनस्क्रीन, पानी की बोतल, हल्का दुपट्टा। अभयारण्य के लिए दूरबीन/कैमरा।</p>
+      </div>
+      <div class="card">
+        <span class="tag">सम्मान और देखभाल</span>
+        <p>कचरा न फैलाएँ, भित्ति‑चित्रों के पास सावधानी, स्थानीय कलाकारों/खानपान का समर्थन करें।</p>
+      </div>
+      <div class="card">
+        <span class="tag">आवागमन</span>
+        <p>शहर में ऑटो/कैब, अभयारण्य और कस्बों के बीच जीप/टैक्सी बेहतर।</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="flagfoot">
+      <span class="dot" style="background:var(--kesariya)"></span>
+      <span class="dot" style="background:var(--safed); outline:2px solid var(--neel); outline-offset:2px"></span>
+      <span class="dot" style="background:var(--hara)"></span>
+      <span>जय हिन्द • स्वतंत्रता दिवस के नाम</span>
+    </div>
+    <div style="margin-top:10px" class="muted">इस फ़ाइल को सीधे सर्वर/होस्टिंग पर रखें — सब कुछ एक ही पेज में।</div>
+  </footer>
+
+  <!-- 15 अगस्त पॉपअप + कंफ़ेटी -->
+  <div class="flash" id="flash">
+    <div class="box">
+      <div style="font-size:28px; font-weight:800; margin-bottom:6px;">स्वतंत्रता दिवस की शुभकामनाएँ! 🇮🇳</div>
+      <div class="muted" style="margin-bottom:16px">चूरू से आज़ादी की खुशबू — चलिए, घूमते हैं।</div>
+      <button class="close" id="closeFlash">चलें, घूमते हैं</button>
+    </div>
+  </div>
+
+  <script>
+    // — पतंगें बनाएँ —
+    (function(){
+      const wrap = document.getElementById('kites');
+      const count = 12;
+      for(let i=0;i<count;i++){
+        const k = document.createElement('div');
+        k.className='kite';
+        k.style.left = (Math.random()*90+5)+'%';
+        k.style.top = (Math.random()*40+0)+'px';
+        k.style.animationDelay = (Math.random()*8)+'s';
+        k.style.opacity = (Math.random()*0.5+0.5).toFixed(2);
+        k.style.width = (Math.random()*18+30)+'px';
+        wrap.appendChild(k);
+      }
+    })();
+
+    // — कंफ़ेटी —
+    function burstConfetti(x, y){
+      const n = 120;
+      for(let i=0;i<n;i++){
+        const p = document.createElement('div');
+        const size = Math.random()*6+4;
+        p.style.position='fixed';
+        p.style.left = x+'px';
+        p.style.top = y+'px';
+        p.style.width = size+'px';
+        p.style.height = size+'px';
+        p.style.borderRadius = '2px';
+        p.style.background = ['#FF9933','#ffffff','#138808','#0f3a7a'][i%4];
+        p.style.zIndex = 70;
+        document.body.appendChild(p);
+        const ang = Math.random()*Math.PI*2;
+        const vel = Math.random()*8+4;
+        const dx = Math.cos(ang)*vel;
+        const dy0 = Math.sin(ang)*vel;
+        let xx = 0, yy = 0, life = 0; const grav=.22;
+        const anim = () => {
+          life += 1; xx += dx; yy += dy0 + grav*life*0.5; 
+          p.style.transform = `translate(${x+xx}px, ${y+yy}px) rotate(${life*10}deg)`;
+          p.style.opacity = String(1 - life/120);
+          if(life<120) requestAnimationFrame(anim); else p.remove();
+        };
+        requestAnimationFrame(anim);
+      }
+    }
+
+    // — 15 अगस्त पॉपअप (लोकल समय) —
+    (function(){
+      const now = new Date();
+      const isIndependenceDay = (now.getMonth()===7 && now.getDate()===15);
+      const flash = document.getElementById('flash');
+      const close = document.getElementById('closeFlash');
+      if(isIndependenceDay){
+        flash.style.display='grid';
+        setTimeout(()=> burstConfetti(window.innerWidth/2, window.innerHeight/3), 200);
+      }
+      close.addEventListener('click', ()=>{ flash.style.display='none';});
+    })();
+
+    // — स्क्रोल रिवील —
+    (function(){
+      const items = document.querySelectorAll('.card, .t-item, h2');
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.animate([
+              {opacity:0, transform:'translateY(14px) scale(.98)'},
+              {opacity:1, transform:'translateY(0) scale(1)'}
+            ], {duration:600, easing:'cubic-bezier(.2,.8,.2,1)', fill:'forwards'});
+            obs.unobserve(e.target);
+          }
+        });
+      }, {threshold:.15});
+      items.forEach(el=>obs.observe(el));
+    })();
+
+    // — मानचित्र इंटरेक्शन —
+    (function(){
+      const tips = {
+        'dot-churu': {title:'चूरू', text:'जिला मुख्यालय — बाज़ार, फ्रेस्को हवेलियाँ और मरु‑मार्गों का प्रवेशद्वार।'},
+        'dot-tal': {title:'ताल छापर अभयारण्य', text:'घास के विस्तृत मैदान, काले हिरण और पक्षी — दूरी बनाए रखें, धीमे चलें।'}
+      };
+      document.querySelectorAll('#dot-churu, #dot-tal').forEach(el=>{
+        el.style.cursor='pointer';
+        el.addEventListener('click', (ev)=>{
+          const t = tips[el.id];
+          const x = ev.clientX, y = ev.clientY;
+          burstConfetti(x, y);
+          toast(`${t.title}: ${t.text}`);
+        });
+      });
+
+      function toast(msg){
+        const n = document.createElement('div');
+        n.textContent = msg;
+        n.style.position='fixed';
+        n.style.left='50%'; n.style.top='24px'; n.style.transform='translateX(-50%)';
+        n.style.padding='10px 14px'; n.style.borderRadius='12px';
+        n.style.background='linear-gradient(180deg,#ffffff,#f3f6ff)';
+        n.style.border='1px solid rgba(0,0,0,.12)';
+        n.style.boxShadow='0 10px 30px rgba(0,0,0,.15)';
+        n.style.zIndex=80; n.style.fontWeight='800';
+        document.body.appendChild(n);
+        setTimeout(()=> n.remove(), 2600);
+      }
+    })();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>स्वतंत्रता दिवस • चूरू, राजस्थान की सैर</title>
+  <meta name="description" content="स्वतंत्रता दिवस पर चूरू (राजस्थान) की खोज के लिए एनिमेटेड, अनोखे डिज़ाइन वाली एक सिंगल‑फाइल वेबसाइट।" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --kesariya:#FF9933; /* केसरिया */
+      --safed:#ffffff;    /* सफ़ेद */
+      --hara:#138808;     /* हरा */
+      --neel:#0f3a7a;     /* अशोक चक्र नीला */
+      --ink:#0F172A;
+      --muted:#97a3b6;
+      --glass: rgba(255,255,255,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:'Noto Sans Devanagari',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; color:#0e1628;
+      /* तिरंगे के रंगों वाला बैकग्राउंड */
+      background:
+        radial-gradient(700px 280px at 80% -10%, rgba(255,153,51,.12), transparent 60%),
+        radial-gradient(700px 280px at 20% 110%, rgba(19,136,8,.12), transparent 60%),
+        linear-gradient(180deg,var(--kesariya) 0 33.33%, var(--safed) 33.33% 66.66%, var(--hara) 66.66% 100%);
+      background-attachment: fixed;
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{width:min(1100px,92%); margin-inline:auto}
+
+    /* --- NAV --- */
+    nav{
+      position:sticky; top:0; z-index:50; backdrop-filter: blur(8px); 
+      background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.5)); 
+      border-bottom:1px solid rgba(0,0,0,.08)
+    }
+    nav .bar{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.5px}
+    .chakra{width:28px; height:28px}
+    .chakra svg{width:100%; height:100%; animation:spin 14s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .navlinks{display:flex; gap:14px; font-weight:700}
+    .pill{padding:8px 14px; border-radius:999px; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.08); box-shadow:0 6px 18px rgba(0,0,0,.06)}
+
+    /* --- HERO --- */
+    .hero{position:relative; padding:78px 0 56px}
+    .headline{font-size:clamp(30px,4vw,50px); line-height:1.1; font-weight:800;}
+    .headline .grad{background:linear-gradient(90deg,var(--kesariya),var(--neel),var(--hara)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .sub{color:#1f2a44; font-size:clamp(14px,1.6vw,17px)}
+
+    /* Waving tricolor ribbon (नीचे) */
+    .ribbon{position:absolute; inset:auto 0 -16px 0; height:160px; pointer-events:none; mask-image:linear-gradient(to bottom,transparent,black 30%,black 70%,transparent)}
+    .stripe{position:absolute; inset:0; transform-origin:left; animation:wave 9s ease-in-out infinite; opacity:.9}
+    .stripe.saffron{top:0; height:54px; background:linear-gradient(90deg,var(--kesariya),#ffb366 30%,var(--kesariya))}
+    .stripe.white{top:54px; height:54px; background:linear-gradient(90deg,#fff,#f7f7f7,#fff)}
+    .stripe.green{top:108px; height:54px; background:linear-gradient(90deg,var(--hara),#1faa0a 40%,var(--hara)); animation-delay:.3s}
+    @keyframes wave{0%,100%{transform:skewY(0) translateX(0)}50%{transform:skewY(-3deg) translateX(-2%)}}
+
+    /* पतंगें */
+    .kite{position:absolute; width:42px; aspect-ratio:1; background:conic-gradient(from 45deg at 50% 50%, var(--kesariya) 0 90deg, var(--safed) 90deg 180deg, var(--hara) 180deg 270deg, var(--neel) 270deg 360deg); transform:rotate(45deg); border-radius:6px; filter:drop-shadow(0 10px 20px rgba(0,0,0,.2)); opacity:.85; animation:float 18s linear infinite}
+    .kite:after{content:""; position:absolute; inset:auto auto -24px 50%; width:2px; height:28px; background:rgba(0,0,0,.35)}
+    @keyframes float{0%{transform:translateY(0) rotate(45deg)}50%{transform:translateY(-80px) rotate(60deg)}100%{transform:translateY(0) rotate(45deg)}}
+
+    /* कार्ड */
+    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:28px}
+    .card{position:relative; padding:18px; border-radius:22px; background:rgba(255,255,255,.85); border:2px solid rgba(0,0,0,.08); box-shadow:0 18px 40px rgba(0,0,0,.10); transition:transform .35s ease, box-shadow .35s ease}
+    .card:hover{transform:translateY(-6px) rotateX(3deg); box-shadow:0 28px 60px rgba(0,0,0,.18)}
+    .tag{display:inline-block; padding:6px 10px; border-radius:10px; font-size:12px; font-weight:800; letter-spacing:.3px; background:linear-gradient(90deg,rgba(255,153,51,.2),rgba(19,136,8,.2)); border:1px solid rgba(0,0,0,.06)}
+
+    /* सेक्शन */
+    h2{font-size:clamp(22px,2.8vw,32px)}
+    .section{padding:72px 0}
+
+    /* मैप कार्ड (स्टाइलाइज़्ड) */
+    .mapwrap{position:relative; border-radius:28px; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.08); padding:16px}
+    .map{aspect-ratio: 16/9; background: #091227; border-radius:22px; position:relative; overflow:hidden}
+    .map svg{width:100%; height:100%; display:block; filter: drop-shadow(0 20px 40px rgba(0,0,0,.35));}
+    .pulse{fill:#eaffef; stroke:var(--hara); stroke-width:2; filter: drop-shadow(0 0 12px rgba(19,136,8,.6)); transform-origin:center; animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%{transform:scale(.9); opacity:.9}50%{transform:scale(1.15); opacity:1}100%{transform:scale(.9); opacity:.9}}
+
+    /* टाइमलाइन */
+    .timeline{position:relative; margin-top:18px; padding-left:14px}
+    .timeline:before{content:""; position:absolute; left:12px; top:0; bottom:0; width:3px; background:linear-gradient(var(--kesariya),var(--safed),var(--hara)); border-radius:2px}
+    .t-item{position:relative; margin-left:18px; padding:12px 14px 12px 16px; background:rgba(255,255,255,.85); border:1px solid rgba(0,0,0,.08); border-radius:16px; margin-bottom:12px}
+    .t-item:before{content:""; position:absolute; left:-20px; top:16px; width:12px; height:12px; border-radius:50%; background:var(--kesariya); box-shadow:0 0 0 4px rgba(255,153,51,.25)}
+
+    /* फ़ूटर */
+    footer{padding:40px 0 70px; color:#0e1628; text-align:center}
+    .flagfoot{display:inline-flex; gap:8px; align-items:center; font-weight:800}
+    .dot{width:10px; height:10px; border-radius:999px}
+
+    /* 15 अगस्त पॉपअप */
+    .flash{position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.35); backdrop-filter: blur(6px); z-index:60}
+    .flash .box{padding:26px 22px; border-radius:18px; text-align:center; background:linear-gradient(180deg,#ffffff,#f3f6ff); border:1px solid rgba(0,0,0,.08); width:min(520px,92%)}
+    .close{cursor:pointer; border:none; padding:10px 14px; border-radius:12px; font-weight:800; background:linear-gradient(90deg, var(--kesariya), var(--safed), var(--hara)); color:#0a1228}
+
+    /* यूटिलिटी */
+    .muted{opacity:.8}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="bar container">
+      <div class="brand">
+        <span class="chakra" aria-hidden>
+          <!-- घूमता हुआ अशोक चक्र -->
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <circle cx="50" cy="50" r="48" stroke="var(--neel)" stroke-width="4"/>
+            <g stroke="var(--neel)" stroke-width="3">
+              <line x1="50" y1="6" x2="50" y2="94"/>
+              <line x1="6" y1="50" x2="94" y2="50"/>
+              <line x1="18" y1="18" x2="82" y2="82"/>
+              <line x1="82" y1="18" x2="18" y2="82"/>
+            </g>
+          </svg>
+        </span>
+        <span>आज़ादी × चूरू</span>
+      </div>
+      <div class="navlinks">
+        <a class="pill" href="#explore">खोजें</a>
+        <a class="pill" href="#map">मानचित्र</a>
+        <a class="pill" href="#plan">योजना</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero container">
+    <div class="ribbon" aria-hidden>
+      <div class="stripe saffron"></div>
+      <div class="stripe white"></div>
+      <div class="stripe green"></div>
+    </div>
+
+    <!-- उड़ती पतंगें -->
+    <div id="kites" aria-hidden></div>
+
+    <h1 class="headline">स्वतंत्रता दिवस पर <span class="grad">चूरू, राजस्थान</span> की सैर</h1>
+    <p class="sub">तिरंगे रंगों वाला बैकग्राउंड, घूमता अशोक चक्र, पतंगें, स्क्रोल ऐनिमेशन और चूरू के प्रमुख आकर्षण — सब एक ही फाइल में।</p>
+
+    <div class="grid">
+      <div class="card">
+        <span class="tag">ताल छापर अभयारण्य</span>
+        <p>काले हिरण और परिंदों का घर। सूर्योदय और गोल्डन आवर सबसे बेहतर समय।</p>
+      </div>
+      <div class="card">
+        <span class="tag">फ्रेस्को हवेलियाँ</span>
+        <p>शेखावाटी शैली की भित्ति‑चित्रों से सजी हवेलियाँ — हर मोड़ पर कला और कहानी।</p>
+      </div>
+      <div class="card">
+        <span class="tag">स्थानीय स्वाद</span>
+        <p>बाजरा रोटी, केर‑सांगरी, रबड़ी। गर्मी में पानी और छाछ साथ रखें।</p>
+      </div>
+      <div class="card">
+        <span class="tag">त्योहारी माहौल</span>
+        <p>15 अगस्त को पतंगबाज़ी, ध्वजारोहण और शाम को आतिशबाज़ी — देशभक्ति का रंग।</p>
+      </div>
+    </div>
+  </header>
+
+  <section id="explore" class="section container">
+    <h2>क्यों जाएँ चूरू?</h2>
+    <p class="muted">थार के किनारे बसा चूरू — घास के मैदान, फ्रेस्को विरासत और शांत मरु‑नगरों का संगम, ऊपर से राजस्थानी मेहमाननवाज़ी।</p>
+
+    <div class="timeline">
+      <div class="t-item"><strong>सुबह</strong> — ताल छापर की सैर, दूरबीन साथ रखें और धीमे चलें।</div>
+      <div class="t-item"><strong>दोपहर</strong> — हवेलियाँ, बावड़ियाँ और गलियाँ; छाछ/नींबू पानी से ताज़गी।</div>
+      <div class="t-item"><strong>शाम</strong> — रेत के टीलों पर सूर्यास्त या छत से नज़ारा; बाज़ार में स्थानीय व्यंजन।</div>
+    </div>
+  </section>
+
+  <section id="map" class="section container">
+    <h2>मानचित्र (स्टाइलाइज़्ड)</h2>
+    <p class="muted">बिंदु पर टैप करें — सरल, सौंदर्यपूर्ण SVG मानचित्र (कोई बाहरी लाइब्रेरी नहीं)।</p>
+
+    <div class="mapwrap">
+      <div class="map" role="img" aria-label="राजस्थान का स्टाइलाइज़्ड मानचित्र जिसमें चूरू हाईलाइट है">
+        <!-- अमूर्त प्रदेश आकार + चूरू और ताल छापर के मार्कर -->
+        <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ra-bg" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#0b1a33"/>
+              <stop offset="1" stop-color="#0a1328"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="450" fill="url(#ra-bg)"/>
+          <path d="M150,120 C210,90 320,80 380,110 C430,135 470,140 520,180 C560,210 590,250 600,300 C600,345 560,370 520,380 C480,390 420,360 360,360 C300,360 240,390 200,360 C160,330 140,280 140,240 C140,200 120,150 150,120 Z" fill="#0f2a4a" stroke="rgba(255,255,255,.08)" stroke-width="2"/>
+
+          <!-- चूरू -->
+          <circle id="dot-churu" class="pulse" cx="370" cy="210" r="7"/>
+          <text x="380" y="206" font-size="14" fill="#d7e7ff">चूरू</text>
+
+          <!-- ताल छापर -->
+          <circle id="dot-tal" cx="345" cy="250" r="6" fill="#eaffef" stroke="#138808" stroke-width="2"/>
+          <text x="356" y="246" font-size="13" fill="#d7e7ff">ताल छापर</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="plan" class="section container">
+    <h2>अपनी 15 अगस्त यात्रा की योजना</h2>
+    <div class="grid">
+      <div class="card">
+        <span class="tag">सबसे अच्छा समय</span>
+        <p>अक्टूबर–फ़रवरी सुहावना मौसम। मॉनसून के बाद (अगस्त–सितंबर) घास हरी और बर्डिंग बढ़िया।</p>
+      </div>
+      <div class="card">
+        <span class="tag">क्या साथ रखें</span>
+        <p>टोपी, धूप का चश्मा, सनस्क्रीन, पानी की बोतल, हल्का दुपट्टा। अभयारण्य के लिए दूरबीन/कैमरा।</p>
+      </div>
+      <div class="card">
+        <span class="tag">सम्मान और देखभाल</span>
+        <p>कचरा न फैलाएँ, भित्ति‑चित्रों के पास सावधानी, स्थानीय कलाकारों/खानपान का समर्थन करें।</p>
+      </div>
+      <div class="card">
+        <span class="tag">आवागमन</span>
+        <p>शहर में ऑटो/कैब, अभयारण्य और कस्बों के बीच जीप/टैक्सी बेहतर।</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="flagfoot">
+      <span class="dot" style="background:var(--kesariya)"></span>
+      <span class="dot" style="background:var(--safed); outline:2px solid var(--neel); outline-offset:2px"></span>
+      <span class="dot" style="background:var(--hara)"></span>
+      <span>जय हिन्द • स्वतंत्रता दिवस के नाम</span>
+    </div>
+    <div style="margin-top:10px" class="muted">इस फ़ाइल को सीधे सर्वर/होस्टिंग पर रखें — सब कुछ एक ही पेज में।</div>
+  </footer>
+
+  <!-- 15 अगस्त पॉपअप + कंफ़ेटी -->
+  <div class="flash" id="flash">
+    <div class="box">
+      <div style="font-size:28px; font-weight:800; margin-bottom:6px;">स्वतंत्रता दिवस की शुभकामनाएँ! 🇮🇳</div>
+      <div class="muted" style="margin-bottom:16px">चूरू से आज़ादी की खुशबू — चलिए, घूमते हैं।</div>
+      <button class="close" id="closeFlash">चलें, घूमते हैं</button>
+    </div>
+  </div>
+
+  <script>
+    // — पतंगें बनाएँ —
+    (function(){
+      const wrap = document.getElementById('kites');
+      const count = 12;
+      for(let i=0;i<count;i++){
+        const k = document.createElement('div');
+        k.className='kite';
+        k.style.left = (Math.random()*90+5)+'%';
+        k.style.top = (Math.random()*40+0)+'px';
+        k.style.animationDelay = (Math.random()*8)+'s';
+        k.style.opacity = (Math.random()*0.5+0.5).toFixed(2);
+        k.style.width = (Math.random()*18+30)+'px';
+        wrap.appendChild(k);
+      }
+    })();
+
+    // — कंफ़ेटी —
+    function burstConfetti(x, y){
+      const n = 120;
+      for(let i=0;i<n;i++){
+        const p = document.createElement('div');
+        const size = Math.random()*6+4;
+        p.style.position='fixed';
+        p.style.left = x+'px';
+        p.style.top = y+'px';
+        p.style.width = size+'px';
+        p.style.height = size+'px';
+        p.style.borderRadius = '2px';
+        p.style.background = ['#FF9933','#ffffff','#138808','#0f3a7a'][i%4];
+        p.style.zIndex = 70;
+        document.body.appendChild(p);
+        const ang = Math.random()*Math.PI*2;
+        const vel = Math.random()*8+4;
+        const dx = Math.cos(ang)*vel;
+        const dy0 = Math.sin(ang)*vel;
+        let xx = 0, yy = 0, life = 0; const grav=.22;
+        const anim = () => {
+          life += 1; xx += dx; yy += dy0 + grav*life*0.5; 
+          p.style.transform = `translate(${x+xx}px, ${y+yy}px) rotate(${life*10}deg)`;
+          p.style.opacity = String(1 - life/120);
+          if(life<120) requestAnimationFrame(anim); else p.remove();
+        };
+        requestAnimationFrame(anim);
+      }
+    }
+
+    // — 15 अगस्त पॉपअप (लोकल समय) —
+    (function(){
+      const now = new Date();
+      const isIndependenceDay = (now.getMonth()===7 && now.getDate()===15);
+      const flash = document.getElementById('flash');
+      const close = document.getElementById('closeFlash');
+      if(isIndependenceDay){
+        flash.style.display='grid';
+        setTimeout(()=> burstConfetti(window.innerWidth/2, window.innerHeight/3), 200);
+      }
+      close.addEventListener('click', ()=>{ flash.style.display='none';});
+    })();
+
+    // — स्क्रोल रिवील —
+    (function(){
+      const items = document.querySelectorAll('.card, .t-item, h2');
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.animate([
+              {opacity:0, transform:'translateY(14px) scale(.98)'},
+              {opacity:1, transform:'translateY(0) scale(1)'}
+            ], {duration:600, easing:'cubic-bezier(.2,.8,.2,1)', fill:'forwards'});
+            obs.unobserve(e.target);
+          }
+        });
+      }, {threshold:.15});
+      items.forEach(el=>obs.observe(el));
+    })();
+
+    // — मानचित्र इंटरेक्शन —
+    (function(){
+      const tips = {
+        'dot-churu': {title:'चूरू', text:'जिला मुख्यालय — बाज़ार, फ्रेस्को हवेलियाँ और मरु‑मार्गों का प्रवेशद्वार।'},
+        'dot-tal': {title:'ताल छापर अभयारण्य', text:'घास के विस्तृत मैदान, काले हिरण और पक्षी — दूरी बनाए रखें, धीमे चलें।'}
+      };
+      document.querySelectorAll('#dot-churu, #dot-tal').forEach(el=>{
+        el.style.cursor='pointer';
+        el.addEventListener('click', (ev)=>{
+          const t = tips[el.id];
+          const x = ev.clientX, y = ev.clientY;
+          burstConfetti(x, y);
+          toast(`${t.title}: ${t.text}`);
+        });
+      });
+
+      function toast(msg){
+        const n = document.createElement('div');
+        n.textContent = msg;
+        n.style.position='fixed';
+        n.style.left='50%'; n.style.top='24px'; n.style.transform='translateX(-50%)';
+        n.style.padding='10px 14px'; n.style.borderRadius='12px';
+        n.style.background='linear-gradient(180deg,#ffffff,#f3f6ff)';
+        n.style.border='1px solid rgba(0,0,0,.12)';
+        n.style.boxShadow='0 10px 30px rgba(0,0,0,.15)';
+        n.style.zIndex=80; n.style.fontWeight='800';
+        document.body.appendChild(n);
+        setTimeout(()=> n.remove(), 2600);
+      }
+    })();
+  </script>
+</body>
+</html>

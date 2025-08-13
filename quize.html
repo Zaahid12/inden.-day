@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Independence Day Quiz</title>
+    <link rel="stylesheet" href="Quiz.css">
+    <style>body {
+    font-family: Arial, sans-serif;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #333;
+    background-repeat: no-repeat ;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+h1 {
+    color: #222;
+    padding: 20px 0;
+}
+.quiz-container {
+    max-width: 800px;
+
+    background-image: url('background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: auto;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+.question {
+    font-size: 18px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+.options label {
+    display: block;
+    background: #f0f0f0;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.options label:hover {
+    background: #ddd;
+}
+button {
+    background: #ff6600;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+button:hover {
+    background: #e65c00;
+}
+#result {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #222;
+}
+
+#result{
+  border: 4px solid white;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background: orange;
+  color: white;
+  min-height: 100px
+}</style>
+</head>
+<body>
+
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">🇮🇳 QUIZE On 15 agust</div>
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul id="navLinks">
+        <li><a href="home.html">Home</a></li>
+
+    </ul>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    nav .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #B22222;
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li {
+        margin-left: 20px;
+    }
+    nav ul li a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #222;
+        font-size: 1rem;
+        transition: color 0.3s;
+        background: rgba(252, 86, 20, 0.8);
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+    nav ul li a:hover {
+        color: #B22222;
+    }
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .menu-toggle span {
+        height: 3px;
+        width: 25px;
+        background: #cfa7a7;
+        margin: 4px 0;
+        border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+        nav ul {
+            display: none;
+            flex-direction: column;
+            background: rgba(255,255,255,0.9);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+        nav ul.show {
+            display: flex;
+        }
+        nav ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .menu-toggle {
+            display: flex;
+        }
+    }
+</style>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
+    <div class="quiz-container" id="quiz"></div>
+
+    <button onclick="submitQuiz()">Submit Quiz</button>
+    <div id="result"></div>
+
+    <script src="Quiz.js"></script>
+    <script>const quizData = [
+    { q: "India got independence on which date?", o: ["14th August 1947", "15th August 1947", "26th January 1950", "2nd October 1947"], a: 1 },
+    { q: "Who was the first Prime Minister of independent India?", o: ["Dr. Rajendra Prasad", "Jawaharlal Nehru", "Sardar Vallabhbhai Patel", "Subhas Chandra Bose"], a: 1 },
+    { q: "The Indian national flag has how many colors?", o: ["2", "3", "4", "5"], a: 1 },
+    { q: "Who wrote the Indian National Anthem?", o: ["Rabindranath Tagore", "Bankim Chandra Chatterjee", "Mahatma Gandhi", "Sarojini Naidu"], a: 0 },
+    { q: "The Ashoka Chakra in the flag has how many spokes?", o: ["20", "22", "24", "26"], a: 2 },
+    { q: "Who gave the slogan 'Quit India'?", o: ["Mahatma Gandhi", "Bal Gangadhar Tilak", "Bhagat Singh", "Subhas Chandra Bose"], a: 0 },
+    { q: "Which day is also celebrated as Partition Day in India?", o: ["15th August 1947", "26th January 1950", "2nd October 1947", "12th March 1930"], a: 0 },
+    { q: "Who was the last Viceroy of India?", o: ["Lord Mountbatten", "Lord Wavell", "Lord Curzon", "Lord Irwin"], a: 0 },
+    { q: "What was the theme of Independence Day 2024?", o: ["Nation First, Always First", "Atmanirbhar Bharat", "Unity in Diversity", "Digital India"], a: 0 },
+    { q: "Who designed the current national flag of India?", o: ["Pingali Venkayya", "Rabindranath Tagore", "B.R. Ambedkar", "Rakesh Sharma"], a: 0 },
+    { q: "In which year was the first Independence Day celebrated?", o: ["1947", "1950", "1948", "1952"], a: 0 },
+    { q: "The first Independence Day speech was delivered at which place?", o: ["Red Fort", "Parliament House", "India Gate", "Rashtrapati Bhavan"], a: 0 },
+    { q: "Who gave the slogan 'Jai Hind'?", o: ["Subhas Chandra Bose", "Bhagat Singh", "Jawaharlal Nehru", "Mahatma Gandhi"], a: 0 },
+    { q: "Which freedom fighter is known as the 'Iron Man of India'?", o: ["Bhagat Singh", "Sardar Vallabhbhai Patel", "Lala Lajpat Rai", "Subhas Chandra Bose"], a: 1 },
+    { q: "Who was the first Governor-General of independent India?", o: ["C. Rajagopalachari", "Lord Mountbatten", "Rajendra Prasad", "Jawaharlal Nehru"], a: 1 },
+    { q: "Which movement was launched in 1942?", o: ["Non-Cooperation Movement", "Quit India Movement", "Swadeshi Movement", "Civil Disobedience Movement"], a: 1 },
+    { q: "What is the ratio of the Indian national flag's length to its height?", o: ["2:1", "3:2", "5:3", "4:3"], a: 1 },
+    { q: "Who was the President of India during the 50th Independence Day (1997)?", o: ["Dr. A.P.J. Abdul Kalam", "Shankar Dayal Sharma", "K. R. Narayanan", "Pratibha Patil"], a: 1 },
+    { q: "Which song is considered India’s national song?", o: ["Vande Mataram", "Jana Gana Mana", "Saare Jahan Se Achha", "Ae Mere Watan Ke Logon"], a: 0 },
+    { q: "Who unfurls the national flag at the Red Fort on Independence Day?", o: ["President of India", "Prime Minister of India", "Defence Minister", "Home Minister"], a: 1 }
+];
+
+const quizContainer = document.getElementById("quiz");
+
+quizData.forEach((item, index) => {
+    const questionHTML = `
+        <div class="question">${index + 1}. ${item.q}</div>
+        <div class="options">
+            ${item.o.map((opt, i) => 
+                `<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label>`
+            ).join("")}
+        </div>`;
+    quizContainer.innerHTML += questionHTML;
+});
+
+function submitQuiz() {
+    let score = 0;
+    quizData.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selected && parseInt(selected.value) === item.a) {
+            score++;
+        }
+    });
+    document.getElementById("result").innerHTML = `🎯 Your Score: ${score} / ${quizData.length}`;
+}</script>
+</body>
+</html>

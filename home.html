@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Independence Day - Home</title>
+<style>
+    .bg{background-image: url('background.jpg');
+        background-position: fixed;
+        z-index: -5;
+    top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        position: fixed;
+    }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        
+    }
+
+    /* Navbar */
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    nav .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #B22222;
+    }
+
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav ul li {
+        margin-left: 20px;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #222;
+        font-size: 1rem;
+        transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+        color: #B22222;
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .menu-toggle span {
+        height: 3px;
+        width: 25px;
+        background: #222;
+        margin: 4px 0;
+        border-radius: 2px;
+    }
+
+    /* Main Content */
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        max-width: 1100px;
+        margin: auto;
+        padding: 40px 20px;
+    }
+
+    .text-section {
+        flex: 1;
+        min-width: 280px;
+    }
+
+    .text-section h1 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+        color: #222;
+    }
+
+    .text-section h1 span {
+        color: #B22222;
+    }
+
+    .text-section p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #222;
+    }
+
+    .image-section {
+        flex: 1;
+        min-width: 280px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .image-section img {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .image-row {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .image-row img {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        nav ul {
+            display: none;
+            flex-direction: column;
+            background: rgba(255,255,255,0.9);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+
+        nav ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        nav ul.show {
+            display: flex;
+        }
+
+        .menu-toggle {
+            display: flex;
+        }
+    }
+          /* --- Animations --- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+@keyframes fadeIn {
+  from { opacity: 0;}
+  to   { opacity: 1;}
+}
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 1s cubic-bezier(.77,0,.18,1) forwards;
+}
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 2s cubic-bezier(.77,0,.18,1) forwards;
+}
+.gallery img {
+  transition: transform 1.5s  cubic-bezier(.77,0,.18,1), box-shadow 0.3s;
+}
+.gallery img:hover {
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow: 0 12px 32px rgba(2,6,23,0.18);
+}
+.timeline .item {
+  opacity: 0;
+  animation: fadeUp 2.0s cubic-bezier(.77,0,.18,1) forwards;
+}
+</style>
+</head>
+<body class="fade-in">
+<div class="bg"></div>
+<nav>
+    <div class="logo">🇮🇳 Independence Day</div>
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul id="navLinks">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="/history/history.html">History</a></li>
+        <li><a href="freedom-fighter.html">Freedom Fighters</a></li>
+        <li><a href="index.html">Celebrations</a></li>
+        <li><a href="quize.html">Quiz</a></li>
+        <li><a href="contactus.html">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="container fade-up">
+    <div class="text-section" style="background-color: rgba(232, 235, 232, 0.6); padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 4;">
+        <h1>About <span>Independence Day</span></h1>
+        <p>
+             स्वतंत्रता दिवस भारत का एक महान राष्ट्रीय पर्व है, जिसे हर वर्ष 15 अगस्त को पूरे देश में बड़े हर्षोल्लास के साथ मनाया जाता है। 15 अगस्त 1947 को हमारा देश ब्रिटिश शासन से मुक्त हुआ और यह दिन हमारे स्वतंत्रता सेनानियों के अदम्य साहस, बलिदान और संघर्ष की याद दिलाता है। महात्मा गांधी, भगत सिंह, नेताजी सुभाष चंद्र बोस, चंद्रशेखर आज़ाद, सरदार वल्लभभाई पटेल, बाल गंगाधर तिलक जैसे अनेक वीरों ने अपने प्राणों की आहुति देकर भारत को स्वतंत्र कराने में महत्वपूर्ण भूमिका निभाई। यह दिन केवल एक उत्सव नहीं, बल्कि देशभक्ति, एकता और गर्व का प्रतीक है। इस दिन प्रधानमंत्री लाल किले से तिरंगा फहराते हैं और राष्ट्र को संबोधित करते हैं, वहीं पूरे देश के स्कूल, कॉलेज, सरकारी और निजी संस्थानों में ध्वजारोहण, सांस्कृतिक कार्यक्रम, देशभक्ति गीत और नाटकों का आयोजन किया जाता है। तिरंगा हमारे राष्ट्रीय गौरव का प्रतीक है, जिसका केसरिया रंग साहस और बलिदान को दर्शाता है, सफेद रंग शांति और सत्य का प्रतीक है, हरा रंग समृद्धि और विकास को दर्शाता है और बीच का अशोक चक्र न्याय, प्रगति और गतिशीलता का प्रतीक है। स्वतंत्रता दिवस हमें यह याद दिलाता है कि आज़ादी कितनी अनमोल है और इसे पाने के लिए हमारे पूर्वजों ने कितनी कठिनाइयों का सामना किया। यह दिन हमें अपने अधिकारों के साथ-साथ कर्तव्यों का भी बोध कराता है, हमें एकजुट होकर अपने देश की प्रगति और सुरक्षा में योगदान देने की प्रेरणा देता है। इस अवसर पर देश की सीमाओं पर तैनात वीर सैनिकों के साहस और बलिदान को भी याद किया जाता है, जो हर मौसम और परिस्थिति में देश की रक्षा करते हैं। स्वतंत्रता दिवस हमें यह संकल्प लेने का अवसर देता है कि हम अपने देश को स्वच्छ, सुंदर, विकसित और आत्मनिर्भर बनाएंगे। यह हमें अपनी संस्कृति, परंपराओं और मूल्यों को सहेजने और नई पीढ़ी तक पहुंचाने का संदेश देता है। यह दिन जाति, धर्म, भाषा या क्षेत्र के भेदभाव को मिटाकर सभी भारतीयों को एक सूत्र में पिरोता है। स्वतंत्रता दिवस आत्मसम्मान, एकता और राष्ट्रप्रेम का पर्व है, जो हमें सदा यह याद दिलाता है कि “सदा स्वतंत्र रहो और अपने देश का मान बढ़ाओ।
+        </p>
+    </div>
+
+    <div class="image-section">
+        <img src="image.png" alt="Indian Flag">
+        <div class="image-row">
+            <img src="image copy.png" alt="Woman in saree">
+            <img src="flag1.jpg" alt="Flag at sunset">
+        </div>
+    </div>
+</div>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
+<!-- Other Pages Section -->
+<section class="fade-up" style="padding: 40px 20px; background: rgba(255,255,255,0.85);">
+    <h2 style="text-align:center; color:#B22222; margin-bottom: 30px; font-size: 1.8rem;">
+        Visit Our Other Pages
+    </h2>
+
+    <div class="cards-container">
+        <!-- Card 1 -->
+
+
+        <!-- Card 2 -->
+        <a href="freedom-fighter.html" class="page-card">
+            <img src="freedom.png" alt="Freedom Fighters">
+            <span>Our Freedom Fighters</span>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="/history/history.html" class="page-card">
+            <img src="image copy 2.png" alt="History">
+            <span>History of Independence</span>
+        </a>
+
+
+        <a href="quize.html" class="page-card">
+            <img src="quize.png" alt="Quiz">
+            <span>Quiz</span>
+        </a>
+        <!-- Card 5 -->
+        <a href="churu.html" class="page-card">
+            <img src="image copy 4.png" alt="Gallery">
+            <span>our district</span>
+        </a>
+
+        <!-- Card 6 -->
+        <a href="game.html" class="page-card">
+            <img src="image copy 5.png" alt="Interesting Facts">
+            <span>game</span>
+        </a>
+        <a href="army.html" class="page-card">
+            <img src="image copy 30.png" alt="More Quiz">
+            <span>about our Indian Aarmy</span>
+        </a>
+
+        <!-- Card 8 -->
+        <a href="codeyogi.html" class="page-card">
+            <img src="image copy 7.png" alt="National Symbols">
+            <span>About codeyogi</span>
+        </a>
+        <!-- Card 7 -->
+        <a href="ISTART.html" class="page-card">
+            <img src="image copy 6.png" alt="Leaders">
+            <span>ISTART Churu</span>
+        </a>
+
+        <!-- Card 9 -->
+        <a href="contactus.html" class="page-card">
+            <img src="image copy 8.png" alt="Patriotic Songs">
+            <span>contact us</span>
+        </a>
+
+        <a href="about.html" class="page-card">
+            <img src="image copy 9.png" alt="More Quiz">
+            <span>about our team</span>
+        </a>
+
+                <a href="big event.html" class="page-card">
+            <img src="image copy 11.png" alt="More Quiz">
+            <span>big events</span>
+        </a>
+                <!-- Card 4 -->
+        <a href="/history/futer.html" class="page-card">
+            <img src="image copy 3.png" alt="Celebrations">
+            <span>future Plans</span>
+        </a>
+    </div>
+</section>
+
+<style>
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: auto;
+}
+.page-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.page-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+.page-card span {
+    padding: 10px;
+    font-weight: bold;
+    color: #B22222;
+    text-align: center;
+}
+.page-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+</style>
+
+</body>
+</html>

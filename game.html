@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tiranga Collector — Game</title>
+<style>
+  :root{
+background-image: url('background.jpg');
+  *{box-sizing:border-box; margin:0; padding:0}
+  background-repeat: no-repeat ;
+  background-size: cover;
+  background-position: center;
+  
+  body{
+    font-family: system-ui, Arial;
+    background: linear-gradient(180deg,var(--saffron),var(--white),var(--green));
+    overflow:hidden;
+  }}
+
+  /* Navbar HUD */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    height:50px;
+    background:rgba(255,255,255,0.2);
+    backdrop-filter: blur(5px);
+    display:flex; justify-content:space-between; align-items:center;
+    padding:0 16px;
+    color:var(--accent);
+    font-weight:700;
+    z-index:20;
+  }
+  header h1{font-size:1rem;}
+  .hud {
+  display:flex;
+  gap:12px;
+  font-size:1.2rem; /* yaha 0.9rem se badha diya */
+  font-weight:700;
+}
+
+  /* Game Canvas Fullscreen */
+  .game-area{
+    position:absolute;
+    top:50px; bottom:0; left:0; right:0;
+  }
+  canvas{
+    width:100%; height:100%; display:block;
+    background:transparent;
+  }
+
+  /* Overlay screens */
+  .overlay{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    background:rgba(0,0,0,0.4);
+    color:#fff; text-align:center;
+    gap:12px; z-index:30; padding:20px;
+  }
+  .hidden{display:none}
+  .btn{
+    background:#fff; border:none; padding:8px 14px;
+    border-radius:6px; font-weight:700; cursor:pointer;
+  }
+
+  /* Mobile controls */
+  .mobile-controls{
+    position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+    display:none; gap:20px; z-index:25;
+  }
+  .mobile-controls button{
+    width:60px; height:60px; border:none; border-radius:10px;
+    font-size:20px; background:rgba(255,255,255,0.8);
+  }
+  @media(max-width:768px){
+    .mobile-controls{display:flex;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🇮🇳 Tiranga Collector</h1>
+  <div class="hud">
+    ⏱ <span id="time">60</span>s
+    ⭐ <span id="score">0</span>
+    ❤ <span id="lives">3</span>
+    <button id="pauseBtn" class="btn">Pause</button>
+  </div>
+</header>
+
+<div class="game-area">
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- overlays -->
+  <div id="startOverlay" class="overlay">
+    <div style="font-size:1.3rem;font-weight:800;">स्वागत है! 🇮🇳</div>
+    <div style="font-size:0.9rem;">Collect Tiranga, avoid bombs!<br>Use ← → or buttons.</div>
+    <button id="startBtn" class="btn">Start Game</button>
+  </div>
+
+  <div id="pausedOverlay" class="overlay hidden">
+    <div style="font-size:1.3rem;">Paused</div>
+    <button id="resumeBtn" class="btn">Resume</button>
+  </div>
+
+  <div id="gameOverOverlay" class="overlay hidden">
+    <div style="font-size:1.3rem;" id="finalText">Game Over</div>
+    <div id="finalScore">Score: 0</div>
+    <button id="replayBtn" class="btn">Play Again</button>
+  </div>
+</div>
+
+<!-- Mobile controls -->
+<div class="mobile-controls">
+  <button id="leftBtn">◀</button>
+  <button id="rightBtn">▶</button>
+</div>
+
+<script>
+/* ====== Game variables ====== */
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+let score = 0, lives = 3, timeLeft = 60;
+let player = { x: 0, y: 0, w: 120, h: 18, speed: 8 };
+let objects = []; // falling objects
+let running = false, gameInterval = null, spawnTimer = 0;
+let lastTime = 0;
+
+function drawPlayer(){
+  const px = player.x, py = player.y;
+  ctx.fillStyle = '#0b2340';
+  roundRect(ctx, px - player.w/2, py - player.h/2, player.w, player.h, 8, true);
+  const stripeW = Math.min(64, player.w-20);
+  const sx = px - stripeW/2;
+  ctx.fillStyle = '#FF9933'; ctx.fillRect(sx, py - 30, stripeW, 6);
+  ctx.fillStyle = '#fff'; ctx.fillRect(sx, py - 24, stripeW, 6);
+  ctx.fillStyle = '#138808'; ctx.fillRect(sx, py - 18, stripeW, 6);
+}
+function roundRect(ctx, x, y, w, h, r, fill){
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.arcTo(x+w, y, x+w, y+h, r);
+  ctx.arcTo(x+w, y+h, x, y+h, r);
+  ctx.arcTo(x, y+h, x, y, r);
+  ctx.arcTo(x, y, x+w, y, r);
+  ctx.closePath();
+  if(fill) ctx.fill();
+} 
+function spawnObject(){
+  const x = Math.random()*(W-60) + 30;
+  const type = Math.random() < 0.78 ? 'tiranga' : 'bomb';
+  const r = type === 'tiranga' ? 20 : 18;
+  const vy = 1.6 + Math.random()*2.2 + Math.min(2, score/40);
+  objects.push({x,y: -20, r, type, vy});
+}
+function drawObject(o){
+  if(o.type === 'tiranga'){
+    const cx = o.x, cy = o.y, r = o.r;
+    ctx.beginPath(); ctx.arc(cx, cy-2, r, Math.PI, 0); ctx.closePath();
+    ctx.fillStyle = '#FF9933'; ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy+1, r-6, Math.PI, 0); ctx.closePath();
+    ctx.fillStyle = '#fff'; ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy+5, r-8, Math.PI, 0); ctx.closePath();
+    ctx.fillStyle = '#138808'; ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI*2); ctx.fillStyle = '#0b2340'; ctx.fill();
+  } else {
+    ctx.fillStyle = '#222';
+    ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#f2c94c'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(o.x + o.r - 2, o.y - o.r + 2); ctx.lineTo(o.x + o.r + 10, o.y - o.r - 8);
+    ctx.stroke();
+  }
+}
+function checkCollision(o){
+  const rx = player.x - player.w/2, ry = player.y - player.h/2, rw = player.w, rh = player.h;
+  const closestX = clamp(o.x, rx, rx+rw);
+  const closestY = clamp(o.y, ry, ry+rh);
+  const dx = o.x - closestX, dy = o.y - closestY;
+  return (dx*dx + dy*dy) <= (o.r*o.r);
+}
+function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+function update(dt){
+  spawnTimer += dt;
+  if(spawnTimer > 700 - Math.min(400, score*6)){
+    spawnObject(); spawnTimer = 0;
+  }
+  for(let i = objects.length-1; i>=0; i--){
+    const o = objects[i];
+    o.y += o.vy;
+    if(checkCollision(o)){
+      if(o.type === 'tiranga'){
+        score += 10;
+        document.getElementById('score').textContent = score;
+      } else {
+        lives -= 1;
+        document.getElementById('lives').textContent = lives;
+      }
+      objects.splice(i,1);
+      if(lives <= 0){ endGame(); return; }
+      continue;
+    }
+    if(o.y - o.r > H){
+      if(o.type === 'tiranga') score = Math.max(0, score - 3);
+      objects.splice(i,1);
+      document.getElementById('score').textContent = score;
+    }
+  }
+}
+function render(){
+  ctx.clearRect(0,0,W,H);
+  objects.forEach(drawObject);
+  drawPlayer();
+}
+function loop(ts){
+  if(!running) return;
+  if(!lastTime) lastTime = ts;
+  const dt = ts - lastTime; lastTime = ts;
+  update(dt); render();
+  requestAnimationFrame(loop);
+}
+
+let leftDown=false, rightDown=false;
+document.addEventListener('keydown', e=>{ if(e.key==='ArrowLeft') leftDown=true; if(e.key==='ArrowRight') rightDown=true; });
+document.addEventListener('keyup', e=>{ if(e.key==='ArrowLeft') leftDown=false; if(e.key==='ArrowRight') rightDown=false; });
+
+document.getElementById('leftBtn').addEventListener('touchstart', e=>{e.preventDefault(); leftDown=true;});
+document.getElementById('leftBtn').addEventListener('touchend', ()=> leftDown=false);
+document.getElementById('rightBtn').addEventListener('touchstart', e=>{e.preventDefault(); rightDown=true;});
+document.getElementById('rightBtn').addEventListener('touchend', ()=> rightDown=false);
+
+document.getElementById('pauseBtn').addEventListener('click', ()=>{
+  if(!running) return;
+  running = false;
+  document.getElementById('pausedOverlay').classList.remove('hidden');
+});
+document.getElementById('resumeBtn').addEventListener('click', ()=>{
+  document.getElementById('pausedOverlay').classList.add('hidden');
+  running = true; lastTime = 0; requestAnimationFrame(loop);
+});
+document.getElementById('startBtn').addEventListener('click', startGame);
+document.getElementById('replayBtn').addEventListener('click', ()=>{ resetGame(); startGame(); });
+
+function startGame(){
+  document.getElementById('startOverlay').classList.add('hidden');
+  document.getElementById('gameOverOverlay').classList.add('hidden');
+  score=0; lives=3; timeLeft=60;
+  document.getElementById('score').textContent = score;
+  document.getElementById('lives').textContent = lives;
+  document.getElementById('time').textContent = timeLeft;
+  objects = []; running=true; lastTime=0;
+  gameInterval = setInterval(()=>{
+    timeLeft--; document.getElementById('time').textContent = timeLeft;
+    if(timeLeft<=0){ endGame(); }
+  },1000);
+  requestAnimationFrame(loop);
+}
+function resetGame(){
+  clearInterval(gameInterval);
+  objects=[]; running=false; lastTime=0;
+  document.getElementById('pausedOverlay').classList.add('hidden');
+  document.getElementById('gameOverOverlay').classList.add('hidden');
+  document.getElementById('startOverlay').classList.remove('hidden');
+}
+function endGame(){
+  running=false; clearInterval(gameInterval);
+  document.getElementById('finalScore').textContent = "Score: "+score;
+  document.getElementById('finalText').textContent = (lives<=0) ? "You lost!" : "Time's up!";
+  document.getElementById('gameOverOverlay').classList.remove('hidden');
+}
+function playerMovementLoop(){
+  if(leftDown) player.x -= player.speed;
+  if(rightDown) player.x += player.speed;
+  player.x = clamp(player.x, player.w/2, W - player.w/2);
+  requestAnimationFrame(playerMovementLoop);
+}
+playerMovementLoop();
+
+function fitCanvas(){
+  const rect = canvas.getBoundingClientRect();
+  W = canvas.width = rect.width;
+  H = canvas.height = rect.height;
+  player.x = W/2;
+  player.y = H - 80;
+}
+window.addEventListener('resize', fitCanvas);
+window.addEventListener('load', fitCanvas);
+
+setInterval(()=>{ player.speed = 6 + Math.min(6, Math.floor(score/50)); },2000);
+resetGame();
+</script>
+
+</body>
+</html>

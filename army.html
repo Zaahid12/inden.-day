@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Indian Army</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('background.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        color: #fff;
+        color: #222;
+    }
+
+    /* Hero Section */
+    .hero {
+        position: relative;
+        height: 100vh;
+        background: url('army-hero.jpg') no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(255,255,255,0.4);
+    }
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+        padding: 20px;
+    }
+    .hero-content h1 {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        color: #B22222;
+    }
+    .hero-content p {
+        font-size: 1.15rem;
+        line-height: 1.6;
+        background: rgba(255,255,255,0.8);
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    /* Sections */
+    .section {
+        max-width: 1200px;
+        margin: auto;
+        padding: 80px 20px;
+    }
+    .section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        color: #B22222;
+        text-align: center;
+    }
+    .section p {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        text-align: justify;
+    }
+
+    /* Image + Text Layout */
+    .info {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        margin-bottom: 80px;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s ease;
+    }
+    .info img {
+        width: 450px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .info-text {
+        flex: 1;
+        background: rgba(255,255,255,0.8);
+        padding: 20px;
+        border-radius: 8px;
+    }
+    .info.reverse {
+        flex-direction: row-reverse;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .info {
+            flex-direction: column;
+        }
+        .info.reverse {
+            flex-direction: column;
+        }
+        .info img {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">🇮🇳 Some Legends Of Freedom </div>
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul id="navLinks">
+        <li><a href="home.html">Home</a></li>
+
+    </ul>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    nav .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #B22222;
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li {
+        margin-left: 20px;
+    }
+    nav ul li a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #222;
+        font-size: 1rem;
+        transition: color 0.3s;
+        background: rgba(252, 86, 20, 0.8);
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+    nav ul li a:hover {
+        color: #B22222;
+    }
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .menu-toggle span {
+        height: 3px;
+        width: 25px;
+        background: #cfa7a7;
+        margin: 4px 0;
+        border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+        nav ul {
+            display: none;
+            flex-direction: column;
+            background: rgba(255,255,255,0.9);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+        nav ul.show {
+            display: flex;
+        }
+        nav ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .menu-toggle {
+            display: flex;
+        }
+    }
+</style>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-content">
+        <h1>भारतीय थल सेना</h1>
+        <p>साहस, बलिदान और निष्ठा का प्रतीक — भारतीय थल सेना हमारे देश की सुरक्षा और अखंडता की रक्षा में सदैव तत्पर है।</p>
+    </div>
+</div>
+
+<!-- History -->
+<div class="section">
+    <h2>इतिहास</h2>
+    <div class="info">
+        <img src="image copy 28.png" alt="Indian Army History">
+        <div class="info-text">
+            <p>भारतीय थल सेना का इतिहास अत्यंत गौरवशाली है। इसकी जड़ें प्राचीन राजाओं की सेनाओं में मिलती हैं, लेकिन इसका आधुनिक स्वरूप 1895 में ब्रिटिश भारतीय सेना के रूप में आकार लिया। 15 अगस्त 1947 को आज़ादी के बाद यह भारतीय थल सेना के रूप में स्थापित हुई। सेना ने 1947, 1965, 1971 और 1999 के युद्धों में अद्वितीय साहस दिखाया।</p>
+        </div>
+    </div>
+</div>
+
+<!-- Structure -->
+<div class="section">
+    <h2>संरचना</h2>
+    <div class="info reverse">
+        <img src="image copy 29.png" alt="Indian Army Structure">
+        <div class="info-text">
+            <p>भारतीय थल सेना का नेतृत्व सेना प्रमुख करते हैं। यह 7 मुख्य कमानों में बंटी है: उत्तरी, पश्चिमी, पूर्वी, दक्षिणी, दक्षिण-पश्चिमी, मध्य और प्रशिक्षण कमान। प्रत्येक कमान में कई कोर, डिवीज़न और रेजिमेंट्स होती हैं जैसे गोरखा रेजिमेंट, सिख रेजिमेंट और राजपूताना राइफल्स।</p>
+        </div>
+    </div>
+</div>
+
+<!-- Achievements -->
+<div class="section">
+    <h2>उपलब्धियां</h2>
+    <div class="info">
+        <img src="image copy 31.png" alt="Indian Army Achievements"><div class="info-text">
+            <p>भारतीय सेना ने कई युद्धों में विजय प्राप्त की है और संयुक्त राष्ट्र शांति अभियानों में अहम भूमिका निभाई है। 1971 के युद्ध में पाकिस्तान पर विजय और बांग्लादेश का निर्माण, कारगिल विजय, और आतंकवाद-रोधी अभियानों में सफलता सेना की वीरता को दर्शाते हैं।</p>
+        </div>
+    </div>
+</div>
+
+<!-- Values -->
+<div class="section">
+    <h2>मूल्य और आदर्श</h2>
+    <div class="info reverse">
+        <img src="image copy 32.png" alt="Indian Army Values">
+        <div class="info-text">
+            <p>भारतीय सेना का मूल मंत्र "Service Before Self" है। साहस, अनुशासन, सम्मान और ईमानदारी इसके स्तंभ हैं। यह सेना हर परिस्थिति में देशवासियों की रक्षा के लिए समर्पित है।</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Scroll animation
+    const infos = document.querySelectorAll('.info');
+    window.addEventListener('scroll', () => {
+        infos.forEach(info => {
+            const rect = info.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                info.style.opacity = 1;
+                info.style.transform = 'translateY(0)';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

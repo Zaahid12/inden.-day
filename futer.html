@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RJ TechForce – Our Future Plans</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('/ special/background.jpg');
+        background-repeat: no-repeat;   
+        background-size: cover;
+        background-attachment: fixed;
+        
+        color: #222;
+    }
+
+    /* Navbar */
+    
+    /* Hero Section */
+    .hero {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        color: #B22222;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: auto;
+        line-height: 1.6;
+    }
+
+    /* Plans Section */
+    .plans {
+        max-width: 1100px;
+        margin: auto;
+        padding: 40px 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    .plan-card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: transform 0.3s;
+    }
+
+    .plan-card:hover {
+        transform: scale(1.05);
+    }
+
+    .plan-card h3 {
+        color: #B22222;
+        margin-bottom: 10px;
+    }
+
+    .plan-card p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        nav ul {
+            display: none;
+            flex-direction: column;
+            background: rgba(255,255,255,0.95);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav ul.show {
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .menu-toggle {
+            display: flex;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">🇮🇳 our future Plans</div>
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul id="navLinks">
+        <li><a href="/ special/home.html">Home</a></li>
+
+    </ul>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    nav .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #B22222;
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li {
+        margin-left: 20px;
+    }
+    nav ul li a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #222;
+        font-size: 1rem;
+        transition: color 0.3s;
+        background: rgba(252, 86, 20, 0.8);
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+    nav ul li a:hover {
+        color: #B22222;
+    }
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .menu-toggle span {
+        height: 3px;
+        width: 25px;
+        background: #cfa7a7;
+        margin: 4px 0;
+        border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+        nav ul {
+            display: none;
+            flex-direction: column;
+            background: rgba(255,255,255,0.9);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+        nav ul.show {
+            display: flex;
+        }
+        nav ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .menu-toggle {
+            display: flex;
+        }
+    }
+</style>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
+<!-- Hero -->
+<section class="hero">
+    <h1>Our Future Plans</h1>
+    <p>At RJ TechForce, we are a passionate group of students working towards creating impactful technology solutions. 
+    Our mission is to innovate, learn, and contribute to society through our technical skills and creative ideas. 
+    Here are some of our future goals and visions.</p>
+</section>
+<!-- Plans -->
+<section class="plans">
+    <div class="plan-card">
+        <h3>AI-Based Projects</h3>
+        <p>We plan to work on Artificial Intelligence-based applications that can solve real-world problems in areas like healthcare, education, and environment.</p>
+    </div>
+    <div class="plan-card">
+        <h3>Community Learning Platform</h3>
+        <p>Our team will develop an online platform where students can share knowledge, collaborate, and build projects together.</p>
+    </div>
+    <div class="plan-card">
+        <h3>Mobile Apps for Local Needs</h3>
+        <p>We aim to create apps that solve local issues, making technology more accessible to our community.</p>
+    </div>
+    <div class="plan-card">
+        <h3>IoT & Robotics</h3>
+        <p>We will explore IoT devices and robotics to develop innovative solutions for agriculture, safety, and automation.</p>
+    </div>
+    <div class="plan-card">
+        <h3>Open Source Contributions</h3>
+        <p>RJ TechForce will actively contribute to open-source projects, helping the global developer community grow.</p>
+    </div>
+    <div class="plan-card">
+        <h3>Workshops & Events</h3>
+        <p>We plan to organize coding workshops, hackathons, and tech events to encourage learning and collaboration among students.</p>
+    </div>
+</section>
+
+
+
+</body>
+</html>
